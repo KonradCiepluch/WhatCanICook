@@ -1,0 +1,29 @@
+@keyframes rotation {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: calc(100% - 100px);
+  width: 100%;
+
+  background-color: #fff;
+
+  & img {
+    width: 50px;
+    margin-top: -50px;
+
+    animation: rotation 1s steps(12) infinite;
+  }
+}
