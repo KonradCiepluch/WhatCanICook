@@ -7,6 +7,7 @@ import { FieldValues } from 'react-hook-form';
 
 import { useUser } from 'context/UserProvider';
 import { auth } from 'firebaseInit/firebase';
+import { MotionWrapper } from 'components/Atoms';
 import { PageForm } from 'components/Organisms';
 
 const schema = yup.object().shape({
@@ -47,7 +48,11 @@ const Register = () => {
     }
   }, []);
 
-  return <PageForm content={content} inputsArray={inputsArray} schema={schema} submitHandler={handleSubmitForm} />;
+  return (
+    <MotionWrapper>
+      <PageForm content={content} inputsArray={inputsArray} schema={schema} submitHandler={handleSubmitForm} />
+    </MotionWrapper>
+  );
 };
 
 export default Register;

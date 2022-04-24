@@ -5,6 +5,7 @@ import { FieldValues } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
 import { useUser } from 'context/UserProvider';
+import { MotionWrapper } from 'components/Atoms';
 import { PageForm } from 'components/Organisms';
 import { auth } from 'firebaseInit/firebase';
 
@@ -37,7 +38,11 @@ const PasswordRestore = () => {
     }
   }, []);
 
-  return <PageForm content={content} inputsArray={inputsArray} schema={schema} submitHandler={handleSubmitForm} />;
+  return (
+    <MotionWrapper>
+      <PageForm content={content} inputsArray={inputsArray} schema={schema} submitHandler={handleSubmitForm} />
+    </MotionWrapper>
+  );
 };
 
 export default PasswordRestore;

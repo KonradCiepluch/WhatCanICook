@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { AnimatePresence } from 'framer-motion';
 
 import { useUser } from 'context/UserProvider';
 import { auth } from 'firebaseInit/firebase';
@@ -45,13 +46,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <nav className={styles.menu}>
-        <Image src={logoImage} width={100} height={100} alt="site logo" />
+        <Link href="/">
+          <a>
+            <Image src={logoImage} width={100} height={100} alt="site logo" />
+          </a>
+        </Link>
         <div className={styles.menu__user}>
           <span className="fas fa-user" />
           <div className={styles.menu__links}>{links}</div>
         </div>
       </nav>
-      {children}
+      <AnimatePresence exitBeforeEnter>{children}</AnimatePresence>
     </>
   );
 };

@@ -5,7 +5,7 @@ import * as yup from 'yup';
 
 import { auth } from 'firebaseInit/firebase';
 import DefaultProfile from 'assets/defaultPic.png';
-import { Message, Spinner } from 'components/Atoms';
+import { Button, Message, Spinner, MotionWrapper } from 'components/Atoms';
 import { PageForm } from 'components/Organisms';
 import { useUser } from 'context/UserProvider';
 import useRequestState from 'hooks/useRequestState';
@@ -44,7 +44,7 @@ const [imageSchema, firstNameSchema, surnameSchema] = [
     firstname: yup.string().min(2, 'Imię jest za krótkie').required('Imię jest wymagane'),
   }),
   yup.object().shape({
-    surname: yup.string().min(2, 'Nazwisko jest za krótkie').required('Nazwisko jest wymagane'),
+    lastname: yup.string().min(2, 'Nazwisko jest za krótkie').required('Nazwisko jest wymagane'),
   }),
 ];
 
@@ -60,7 +60,7 @@ const User = () => {
       push('/login');
       return;
     }
-    setTimeout(() => handleRequest('none'), 200);
+    setTimeout(() => handleRequest('none'), 150);
   }, [handleRequest, authenticatedUser, push]);
 
   const handleUpdateProfile = useCallback(
@@ -77,17 +77,17 @@ const User = () => {
   const handleChangeFirstName = useCallback(
     async ({ firstname }) => {
       const { displayName } = authenticatedUser;
-      const [, surname] = displayName.split('');
+      const [, surname] = displayName.split(' ');
       await handleUpdateProfile('displayName', `${firstname} ${surname}`);
     },
     [authenticatedUser, handleUpdateProfile]
   );
 
   const handleChangeSurname = useCallback(
-    async ({ surname }) => {
+    async ({ lastname }) => {
       const { displayName } = authenticatedUser;
-      const [firstname] = displayName.split('');
-      await handleUpdateProfile('displayName', `${firstname} ${surname}`);
+      const [firstname] = displayName.split(' ');
+      await handleUpdateProfile('displayName', `${firstname} ${lastname}`);
     },
     [authenticatedUser, handleUpdateProfile]
   );
@@ -115,20 +115,18 @@ const User = () => {
   ) : isLoadingState ? (
     <Spinner />
   ) : (
-    <div className={styles.form}>
+    <MotionWrapper className={styles.form}>
       <h1 className={styles.form__heading}>Strona użytkownika</h1>
       <div className={userStyles.user}>
         <img src={authenticatedUser.photoURL || DefaultProfile.src} alt="profile picture" className={userStyles.user__picture} />
         <p className={userStyles.user__name}>{authenticatedUser.displayName}</p>
       </div>
-      <button onClick={handleClick} className={styles.form__submit}>
-        {isLoadingState ? <Spinner /> : 'Wyloguj się'}
-      </button>
+      <Button type="button" label="Wyloguj się" handleClick={handleClick} isLoading={isLoadingState} />
       {isErrorState ? <span className={styles.form__error}>{errMsg}</span> : null}
       <PageForm content={pictureContent} inputsArray={pictureInputs} schema={imageSchema} submitHandler={handleChangePhoto} />
       <PageForm content={firstNameContent} inputsArray={firstNameInputs} schema={firstNameSchema} submitHandler={handleChangeFirstName} />
       <PageForm content={lastNameContent} inputsArray={lastNameInputs} schema={surnameSchema} submitHandler={handleChangeSurname} />
-    </div>
+    </MotionWrapper>
   );
 };
 

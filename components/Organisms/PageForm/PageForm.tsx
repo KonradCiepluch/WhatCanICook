@@ -39,7 +39,7 @@ const PageForm = ({ content: { heading, successMessage, submitLabel }, inputsArr
       <form onSubmit={methods.handleSubmit(handleSubmitForm)} className={styles.form}>
         <h1 className={styles.form__heading}>{heading}</h1>
         {fields}
-        <Button label={submitLabel} className={styles.form__submit} isLoading={isLoadingState} disabled={isLoadingState} />
+        <Button label={submitLabel} isLoading={isLoadingState} disabled={isLoadingState} />
         {isErrorState ? <span className={styles.form__error}>{errMsg}</span> : null}
         {children ? children(handleRequest, isLoadingState) : null}
       </form>

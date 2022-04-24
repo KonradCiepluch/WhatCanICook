@@ -5,8 +5,9 @@ import { signInWithEmailAndPassword, browserLocalPersistence, browserSessionPers
 import { FieldValues } from 'react-hook-form';
 
 import { auth } from 'firebaseInit/firebase';
-import { PageForm } from 'components/Organisms';
+import { MotionWrapper } from 'components/Atoms';
 import { SocialMediaAuth } from 'components/Molecules';
+import { PageForm } from 'components/Organisms';
 import { useUser } from 'context/UserProvider';
 
 const schema = yup.object().shape({
@@ -35,12 +36,6 @@ const inputsArray = [
 
 const content = { heading: 'Logowanie', submitLabel: 'Zaloguj się' };
 
-// layout
-// auth
-// standard
-// blog
-// ...
-
 const Login = () => {
   const { push } = useRouter();
 
@@ -68,9 +63,11 @@ const Login = () => {
   );
 
   return (
-    <PageForm content={content} inputsArray={inputsArray} schema={schema} submitHandler={handleSubmitForm}>
-      {(requestHandler, isLoadingState) => <SocialMediaAuth handleRequest={requestHandler} isLoading={isLoadingState} />}
-    </PageForm>
+    <MotionWrapper>
+      <PageForm content={content} inputsArray={inputsArray} schema={schema} submitHandler={handleSubmitForm}>
+        {(requestHandler, isLoadingState) => <SocialMediaAuth handleRequest={requestHandler} isLoading={isLoadingState} />}
+      </PageForm>
+    </MotionWrapper>
   );
 };
 

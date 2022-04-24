@@ -5,6 +5,11 @@ $nav-background: #fe827a;
   justify-content: space-between;
   align-items: center;
 
+  & > a:first-child {
+    display: block;
+    height: 100px;
+  }
+
   &__user {
     position: relative;
     display: flex;
@@ -33,6 +38,7 @@ $nav-background: #fe827a;
 
   &__links {
     position: absolute;
+    z-index: 1;
     top: 100%;
     left: 0;
     display: none;
