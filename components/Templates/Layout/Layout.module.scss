@@ -1,0 +1,68 @@
+$nav-background: #fe827a;
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > a:first-child {
+    display: block;
+    height: 100px;
+  }
+
+  &__user {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100px;
+    width: 100px;
+    margin-right: 200px;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: $nav-background;
+    }
+
+    &:hover div {
+      display: flex;
+    }
+
+    & span {
+      font-size: 30px;
+      color: grey;
+    }
+  }
+
+  &__links {
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 0;
+    display: none;
+    flex-direction: column;
+
+    width: 250px;
+    padding: 25px 0;
+
+    background-color: $nav-background;
+
+    & a {
+      padding: 5px 10px;
+
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #fff;
+
+      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #fff;
+        color: black;
+      }
+    }
+  }
+}

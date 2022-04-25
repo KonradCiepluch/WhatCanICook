@@ -1,0 +1,20 @@
+.form {
+  width: 500px;
+  margin: 30px auto;
+  padding: 0 10px;
+
+  &__heading {
+    margin-bottom: 20px;
+
+    font-size: 28px;
+    text-align: center;
+  }
+
+  &__error {
+    margin-left: 15px;
+    line-height: 25px;
+
+    color: red;
+    font-size: 14px;
+  }
+}

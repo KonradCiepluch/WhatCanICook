@@ -26,5 +26,6 @@ module.exports = {
     'import/order': ['error', { groups: [['builtin', 'external', 'internal']] }],
     'import/prefer-default-export': 'error',
     'import/first': 'error',
+    'import/no-unresolved': [1, { esmodule: false }],
   },
 };
