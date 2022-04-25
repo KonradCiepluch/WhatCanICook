@@ -9,3 +9,13 @@ input,
 button {
   font-family: 'Montserrat', sans-serif;
 }
+
+input:focus {
+  border-radius: 0;
+  outline-style: solid;
+  outline-color: blue;
+}
+
+input[type='checkbox']:focus {
+  outline-style: none;
+}
