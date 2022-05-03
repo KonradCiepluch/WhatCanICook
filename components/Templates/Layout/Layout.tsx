@@ -6,6 +6,8 @@ import { AnimatePresence } from 'framer-motion';
 
 import { useUser } from 'context/UserProvider';
 import { auth } from 'firebaseInit/firebase';
+import { ICategory } from 'interfaces/Menu';
+import Navigation from 'components/Molecules/Navigation/Navigation';
 import logoImage from 'assets/logo.png';
 import styles from './Layout.module.scss';
 
@@ -24,7 +26,12 @@ const navLinks = [
   },
 ];
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+interface ILayout {
+  children: React.ReactNode;
+  categories: ICategory[];
+}
+
+const Layout = ({ children, categories }: ILayout) => {
   const { handleSignInUser } = useUser();
 
   useEffect(() => {
@@ -44,20 +51,21 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   ));
 
   return (
-    <>
+    <div className={styles.page}>
       <nav className={styles.menu}>
         <Link href="/">
           <a>
             <Image src={logoImage} width={100} height={100} alt="site logo" />
           </a>
         </Link>
+        <Navigation categories={categories} />
         <div className={styles.menu__user}>
           <span className="fas fa-user" />
           <div className={styles.menu__links}>{links}</div>
         </div>
       </nav>
       <AnimatePresence exitBeforeEnter>{children}</AnimatePresence>
-    </>
+    </div>
   );
 };
 

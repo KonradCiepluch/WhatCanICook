@@ -8,6 +8,7 @@ interface IField {
   placeholder?: string;
   id?: string;
   label?: string;
+  disabled?: boolean;
 }
 
 export type SchemaType = yup.ObjectSchema<

@@ -10,7 +10,7 @@ const Message = ({ message }: { message: string }) => {
   return (
     <div className={styles.message}>
       <h3 className={styles.message__heading}>{message}</h3>
-      {pathname !== '/uzytkownik' ? <Link href="/login">Strona logowania</Link> : null}
+      {!pathname.includes('/uzytkownik') ? <Link href="/login">Strona logowania</Link> : null}
     </div>
   );
 };

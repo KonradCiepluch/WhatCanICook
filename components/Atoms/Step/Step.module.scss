@@ -1,0 +1,20 @@
+.step {
+  display: flex;
+
+  margin-bottom: 10px;
+
+  &__content {
+    flex-grow: 1;
+
+    & h3 {
+      font-size: 18px;
+    }
+  }
+
+  &__image {
+    position: relative;
+
+    width: 220px;
+    height: 150px;
+  }
+}

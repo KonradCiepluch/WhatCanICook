@@ -1,9 +1,15 @@
-$nav-background: #fe827a;
+@import 'styles/_variables.scss';
+
+.page {
+  max-width: 1600px;
+  margin: 0 auto;
+}
 
 .menu {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+
+  height: 100px;
 
   & > a:first-child {
     display: block;
@@ -18,6 +24,7 @@ $nav-background: #fe827a;
 
     height: 100px;
     width: 100px;
+    margin-left: auto;
     margin-right: 200px;
 
     cursor: pointer;
@@ -28,6 +35,10 @@ $nav-background: #fe827a;
 
     &:hover div {
       display: flex;
+    }
+
+    &:hover span {
+      color: white;
     }
 
     & span {

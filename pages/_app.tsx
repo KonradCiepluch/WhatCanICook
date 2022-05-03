@@ -3,11 +3,17 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import { getCategories } from 'lib/firebaseData';
 import Layout from 'components/Templates/Layout/Layout';
 import UserProvider from 'context/UserProvider';
+import { ICategory } from 'interfaces/Menu';
 import 'styles/Global.scss';
 
-const App = ({ Component, pageProps }: AppProps) => {
+interface IApp extends AppProps {
+  categories: ICategory[];
+}
+
+const App = ({ Component, pageProps, categories }: IApp) => {
   const { pathname } = useRouter();
 
   return (
@@ -20,7 +26,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         ></link>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"></link>
       </Head>
-      <Layout>
+      <Layout categories={categories}>
         <Component key={pathname} {...pageProps} />
       </Layout>
     </UserProvider>
@@ -28,3 +34,14 @@ const App = ({ Component, pageProps }: AppProps) => {
 };
 
 export default App;
+
+App.getInitialProps = async () => {
+  try {
+    const categories = await getCategories();
+
+    return { categories };
+  } catch (e) {
+    console.error(e);
+    return { categories: [] };
+  }
+};
