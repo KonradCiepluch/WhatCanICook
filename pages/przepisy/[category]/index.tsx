@@ -17,7 +17,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const categories = await getCategories();
 
-    const paths = categories.map(({ name }) => ({ params: { category: name } }));
+    const paths = categories.map(({ slug }) => ({ params: { category: slug } }));
 
     return {
       paths,
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ params: { category } }) =
   try {
     const categories = await getCategories();
 
-    const foundCategory = categories.find(({ name }) => name.toLowerCase() === recipesCategory.toLowerCase());
+    const foundCategory = categories.find(({ slug }) => slug === recipesCategory);
 
     return { props: { category: foundCategory } };
   } catch (e) {

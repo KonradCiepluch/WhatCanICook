@@ -17,6 +17,7 @@ const schema = yup.object().shape({
 
 const inputsArray = [
   {
+    type: 'text',
     placeholder: 'wpisz adres email',
     name: 'email',
   },
@@ -27,7 +28,6 @@ const inputsArray = [
   },
   {
     type: 'checkbox',
-    placeholder: 'wpisz hasło',
     name: 'remember',
     id: 'remember',
     label: 'Zapamiętaj mnie',

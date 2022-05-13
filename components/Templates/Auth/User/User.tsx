@@ -31,9 +31,9 @@ const [pictureContent, firstNameContent, lastNameContent] = [
 ];
 
 const [pictureInputs, firstNameInputs, lastNameInputs] = [
-  [{ placeholder: 'Podaj url do zdjęcia', name: 'image' }],
-  [{ placeholder: 'Wpisz imię', name: 'firstname' }],
-  [{ placeholder: 'Wpisz nazwisko', name: 'lastname' }],
+  [{ type: 'text', placeholder: 'Podaj url do zdjęcia', name: 'image' }],
+  [{ type: 'text', placeholder: 'Wpisz imię', name: 'firstname' }],
+  [{ type: 'text', placeholder: 'Wpisz nazwisko', name: 'lastname' }],
 ];
 
 const [imageSchema, firstNameSchema, surnameSchema] = [

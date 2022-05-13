@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
-import { Recipe } from 'components/Molecules';
+import { Recipe, BreadCrumbs } from 'components/Molecules';
 import { IRecipe } from 'interfaces/Recipe';
 import styles from './Subcategory.module.scss';
 
-type Props = { subcategory: string; recipes: IRecipe[] };
+type Props = { category: string; subcategory: string; categorySlug: string; subcategorySlug: string; recipes: IRecipe[] };
 
-const Subcategory = ({ subcategory, recipes }: Props) => {
-  const items = recipes.map(({ category: { name: catName, subcategory: subName }, ...args }) => (
-    <Recipe key={args.name} category={catName} subcategory={subName} {...args} />
-  ));
+const Subcategory = ({ category, subcategory, categorySlug, subcategorySlug, recipes }: Props) => {
+  const items = recipes.map((args) => <Recipe key={args.name} {...args} />);
+
+  const linkLabels = useMemo(() => {
+    return [
+      { label: 'What can I cook', href: '/' },
+      { label: category, href: `/przepisy/${categorySlug}` },
+      { label: subcategory, href: `/przepisy/${categorySlug}/${subcategorySlug}` },
+    ];
+  }, [category, subcategory, categorySlug, subcategorySlug]);
 
   return (
     <section className={styles.subcategory}>
+      <BreadCrumbs links={linkLabels} />
       <h1 className={styles.subcategory__heading}>{subcategory}</h1>
       {items.length ? (
         <ul className={styles.subcategory__list}>{items}</ul>

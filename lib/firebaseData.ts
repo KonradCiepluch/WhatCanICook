@@ -1,7 +1,7 @@
 import { getDocs, addDoc } from 'firebase/firestore';
 import { uploadBytes, getDownloadURL, ref } from 'firebase/storage';
 
-import { recipesRef, categoriesRef, storage } from 'firebaseInit/firebase';
+import { recipesRef, categoriesRef, tagsRef, storage } from 'firebaseInit/firebase';
 import { IRecipe } from 'interfaces/Recipe';
 import { ICategoriesCollection } from 'interfaces/Menu';
 
@@ -29,6 +29,18 @@ const getCategories = async () => {
   }
 };
 
+const getTags = async () => {
+  try {
+    const { docs } = await getDocs(tagsRef);
+
+    const [{ data }] = docs.map((doc) => doc.data());
+
+    return data as string[];
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
 const uploadImage = async (photo: File) => {
   try {
     const storageRef = ref(storage, `images/${photo.name}`);
@@ -49,4 +61,4 @@ const addRecipe = async (recipe: IRecipe) => {
   }
 };
 
-export { getRecipes, getCategories, uploadImage, addRecipe };
+export { getRecipes, getCategories, getTags, uploadImage, addRecipe };

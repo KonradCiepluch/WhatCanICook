@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { IRecipe } from 'interfaces/Recipe';
 import { TimeWidget, LevelWidget, Ingredient, Step, RecipeArticle } from 'components/Atoms';
+import { BreadCrumbs } from 'components/Molecules';
 import styles from './RecipeTemplate.module.scss';
 
 type Props = { recipe: IRecipe };
@@ -14,27 +14,21 @@ const RecipeTemplate = ({
     photo,
     difficultyLevel,
     time,
+    slug: nameSlug,
     tags: tagLabels,
     shoppingList,
     steps,
-    category: { name: category, subcategory },
+    category: { name: category, subcategory, categorySlug, subcategorySlug },
   },
 }: Props) => {
-  const linkLabels = useMemo(
-    () => [
+  const linkLabels = useMemo(() => {
+    return [
       { label: 'What can I cook', href: '/' },
-      { label: category, href: `/przepisy/${category}` },
-      { label: subcategory, href: `/przepisy/${category}/${subcategory}` },
-      { label: name, href: `/przepisy/${category}/${subcategory}/${name}` },
-    ],
-    [category, subcategory, name]
-  );
-
-  const links = linkLabels.map(({ label, href }) => (
-    <Link key={label} href={href}>
-      <a className={styles.wrapper__link}>{label}</a>
-    </Link>
-  ));
+      { label: category, href: `/przepisy/${categorySlug}` },
+      { label: subcategory, href: `/przepisy/${categorySlug}/${subcategorySlug}` },
+      { label: name, href: `/przepisy/${categorySlug}/${subcategorySlug}/${nameSlug}` },
+    ];
+  }, [category, subcategory, name, nameSlug, categorySlug, subcategorySlug]);
 
   const tags = tagLabels.map((tag) => (
     <span key={tag} className={styles.wrapper__tag}>
@@ -94,7 +88,7 @@ const RecipeTemplate = ({
 
   return (
     <section className={styles.wrapper}>
-      <header className={styles.wrapper__header}>{links}</header>
+      <BreadCrumbs links={linkLabels} className={styles.wrapper__header} />
       {articles}
     </section>
   );

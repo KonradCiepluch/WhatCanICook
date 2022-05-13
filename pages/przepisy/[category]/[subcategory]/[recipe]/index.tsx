@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params: { recipe 
   try {
     const recipes = await getRecipes();
 
-    const foundRecipe = recipes.find(({ name }) => name.toLowerCase() === recipeName.toLowerCase());
+    const foundRecipe = recipes.find(({ slug }) => slug === recipeName);
 
     return { props: { recipe: foundRecipe } };
   } catch (e) {

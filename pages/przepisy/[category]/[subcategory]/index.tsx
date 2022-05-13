@@ -5,10 +5,12 @@ import { getRecipes, getCategories } from 'lib/firebaseData';
 import { IRecipe } from 'interfaces/Recipe';
 import Subcategory from 'components/Templates/Recipes/Subcategory/Subcategory';
 
-type Props = { subcategory: string; recipes: IRecipe[] };
+type Props = { category: string; subcategory: string; categorySlug: string; subcategorySlug: string; recipes: IRecipe[] };
 
-const SubcategoryPage = ({ subcategory, recipes }: Props) => {
-  return <Subcategory subcategory={subcategory} recipes={recipes} />;
+const SubcategoryPage = ({ category, subcategory, categorySlug, subcategorySlug, recipes }: Props) => {
+  return (
+    <Subcategory category={category} subcategory={subcategory} recipes={recipes} categorySlug={categorySlug} subcategorySlug={subcategorySlug} />
+  );
 };
 
 export default SubcategoryPage;
@@ -17,8 +19,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const categories = await getCategories();
 
-    const paths = categories.reduce((prev, { name, subcategories }) => {
-      const subcategory = subcategories.map((item) => ({ params: { category: name, subcategory: item.name } }));
+    const paths = categories.reduce((prev, { slug, subcategories }) => {
+      const subcategory = subcategories.map((item) => ({ params: { category: slug, subcategory: item.slug } }));
       return [...prev, ...subcategory];
     }, [] as { params: { category: string; subcategory: string } }[]);
 
@@ -34,14 +36,27 @@ export const getStaticProps: GetStaticProps = async ({ params: { category, subca
   const recipesSubcategory = Array.isArray(subcategory) ? subcategory[0] : subcategory;
 
   try {
+    const categories = await getCategories();
+
     const recipes = await getRecipes();
 
+    const { name: categoryName, subcategories } = categories.find(({ slug }) => slug === recipesCategory);
+
+    const { name: subCategoryName } = subcategories.find(({ slug }) => slug === recipesSubcategory);
+
     const recipesBySubcategory = recipes.filter(
-      ({ category: { name, subcategory: subCat } }) =>
-        recipesCategory.toLowerCase() === name.toLowerCase() && recipesSubcategory.toLowerCase() === subCat.toLowerCase()
+      ({ category: { categorySlug, subcategorySlug } }) => recipesCategory === categorySlug && recipesSubcategory === subcategorySlug
     );
 
-    return { props: { subcategory: recipesSubcategory, recipes: recipesBySubcategory } };
+    return {
+      props: {
+        category: categoryName,
+        categorySlug: recipesCategory,
+        subcategory: subCategoryName,
+        subcategorySlug: recipesSubcategory,
+        recipes: recipesBySubcategory,
+      },
+    };
   } catch (e) {
     console.error(e);
     return { props: { subcategory: recipesSubcategory, recipes: [] } };

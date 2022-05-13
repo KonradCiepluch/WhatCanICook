@@ -38,6 +38,8 @@ const recipesRef = collection(db, 'recipes');
 
 const categoriesRef = collection(db, 'categories');
 
+const tagsRef = collection(db, 'tags');
+
 const auth = getAuth();
 
 const facebookProvider = new FacebookAuthProvider();
@@ -46,6 +48,6 @@ const googleProvider = new GoogleAuthProvider();
 
 const githubProvider = new GithubAuthProvider();
 
-export { recipesRef, categoriesRef, auth, facebookProvider, googleProvider, githubProvider, storage };
+export { recipesRef, categoriesRef, tagsRef, auth, facebookProvider, googleProvider, githubProvider, storage };
 
 export default app;

@@ -1,19 +1,26 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import * as yup from 'yup';
 import { FieldValues } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 import { MotionWrapper } from 'components/Atoms';
+import { ProductsList, StepsList, SelectTag } from 'components/Molecules';
 import { PageForm } from 'components/Organisms';
 import { ICategory, ISubcategory } from 'interfaces/Menu';
 import { IRecipe } from 'interfaces/Recipe';
+import getSlug from 'utils/getSlug';
 import imgFileTypes from 'utils/imgFileTypes';
+import getStepsWithUrl from 'utils/getStepsWithUrl';
 import { uploadImage, addRecipe } from 'lib/firebaseData';
-import styles from './AddRecipe.module.scss';
+import { useUser } from 'context/UserProvider';
+import { useDetailsContext } from 'context/DetailsProvider';
 
-type Props = { categories: ICategory[] };
+type Props = { categories: ICategory[]; tags: string[] };
 
 // regexp for time range 5 too 500
 const timeRangeRegexp = /^(500|[1-4][0-9][0-9]|[1-9][0-9]|[5-9])$/;
+// rexexp for youtube link
+const youtubeRegexp = new RegExp('^https://www.youtube.com/');
 
 const schema = yup.object().shape({
   name: yup.string().min(3, 'Nazwa dania powinna zawierać min 3 znaki').required('Nazwa dania jest wymagana'),
@@ -28,16 +35,32 @@ const schema = yup.object().shape({
     .string()
     .matches(timeRangeRegexp, { message: 'Czas przygotowania powinien wynosić od 5 do 500 minut', excludeEmptyString: true })
     .required('Czas przygotowania jest wymagany'),
+  youtube: yup.string().matches(youtubeRegexp, { message: 'Proszę podać prawidłowy link do video na YouTube', excludeEmptyString: true }),
+  products: yup.number().min(2, 'Dodaj przynajmniej dwa produkty do listy zakupów'),
+  tags: yup.number().min(2, 'Lista tagów powinna zawierać przynajmniej dwa tagi'),
+  steps: yup.number().min(2, 'Przygotowanie dania powinno zawierać przynajmniej dwa etapy'),
 });
 
 const formContent = { heading: 'Dodaj nowy przepis', successMessage: 'Przepis został dodany, dziękujemy!', submitLabel: 'Wyślij' };
 
 const difficultyLevels = [1, 2, 3];
 
-const AddRecipe = ({ categories }: Props) => {
+const AddRecipe = ({ categories, tags }: Props) => {
   const [category, setCategory] = useState('');
 
   const [subcategories, setSubcategories] = useState<ISubcategory[]>([]);
+
+  const {
+    state: { steps, products, tags: tagList },
+  } = useDetailsContext();
+
+  const { push } = useRouter();
+
+  const { authenticatedUser } = useUser();
+
+  useEffect(() => {
+    if (!authenticatedUser) push('/');
+  }, [authenticatedUser, push]);
 
   const handleChange = useCallback(
     ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
@@ -51,29 +74,41 @@ const AddRecipe = ({ categories }: Props) => {
     [categories]
   );
 
-  const handleSubmit = useCallback(async ({ photo, name, category: catName, subcategory, level, time }: FieldValues) => {
-    try {
-      const photos = photo as FileList;
-      const firstPhoto = photos[0];
-      const photoUrl = await uploadImage(firstPhoto);
+  const shoppingList = useMemo(() => products.map(({ name, amount, unit }) => ({ product: { name, amount: `${amount} ${unit}` } })), [products]);
 
-      const recipe = {
-        name,
-        category: { name: catName, subcategory },
-        photo: photoUrl,
-        difficultyLevel: Number(level),
-        time,
-      } as IRecipe;
+  const handleSubmit = useCallback(
+    async ({ photo, name, category: catName, subcategory, level, time }: FieldValues) => {
+      try {
+        const photos = photo as FileList;
+        const firstPhoto = photos[0];
+        const photoUrl = await uploadImage(firstPhoto);
 
-      await addRecipe(recipe);
-    } catch (e) {
-      throw new Error(e);
-    }
-  }, []);
+        const stepsWithUrl = await getStepsWithUrl(steps);
+
+        const recipe = {
+          name,
+          slug: getSlug(name),
+          category: { name: catName, subcategory },
+          photo: photoUrl,
+          difficultyLevel: Number(level),
+          shoppingList,
+          steps: stepsWithUrl,
+          tags: tagList,
+          time,
+        } as IRecipe;
+
+        await addRecipe(recipe);
+      } catch (e) {
+        throw new Error(e);
+      }
+    },
+    [tagList, shoppingList, steps]
+  );
 
   const formInputs = useMemo(
     () => [
       {
+        type: 'text',
         placeholder: 'Nazwa dania',
         name: 'name',
       },
@@ -94,8 +129,8 @@ const AddRecipe = ({ categories }: Props) => {
         disabled: !category,
       },
       {
-        name: 'photo',
         type: 'file',
+        name: 'photo',
         label: 'Zdjęcie dania',
       },
       {
@@ -106,16 +141,30 @@ const AddRecipe = ({ categories }: Props) => {
         hiddenOption: 'Wybierz poziom trudności',
       },
       {
+        type: 'text',
         placeholder: 'Czas przygotowania',
         name: 'time',
+      },
+      {
+        type: 'text',
+        placeholder: 'Link do tutorialu na YouTube',
+        name: 'youtube',
       },
     ],
     [category, categories, handleChange, subcategories]
   );
 
   return (
-    <MotionWrapper className={styles.select}>
-      <PageForm content={formContent} inputsArray={formInputs} schema={schema} submitHandler={handleSubmit} />
+    <MotionWrapper>
+      <PageForm content={formContent} inputsArray={formInputs} schema={schema} submitHandler={handleSubmit} isBeforeSubmit>
+        {(handleRequest, isLoadingState, isSuccessState) => (
+          <>
+            <ProductsList isSuccess={isSuccessState} />
+            <SelectTag tags={tags} isSuccess={isSuccessState} />
+            <StepsList />
+          </>
+        )}
+      </PageForm>
     </MotionWrapper>
   );
 };

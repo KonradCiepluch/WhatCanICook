@@ -12,9 +12,11 @@ const Step = ({ description, photo, index }: Props) => {
         <h3>Krok {index}</h3>
         <p>{description}</p>
       </div>
-      <div className={styles.step__image}>
-        <Image src={photo} layout="fill" alt="step-image" />
-      </div>
+      {photo ? (
+        <div className={styles.step__image}>
+          <Image src={photo} layout="fill" alt="step-image" />
+        </div>
+      ) : null}
     </li>
   );
 };

@@ -9,3 +9,4 @@ export { default as LevelWidget } from './LevelWidget/LevelWidget';
 export { default as Ingredient } from './Ingredient/Ingredient';
 export { default as Step } from './Step/Step';
 export { default as RecipeArticle } from './RecipeArticle/RecipeArticle';
+export { default as ListElement } from './ListElement/ListElement';

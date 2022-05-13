@@ -18,9 +18,9 @@ const schema = yup.object().shape({
 });
 
 const inputsArray = [
-  { placeholder: 'wpisz imię', name: 'firstname' },
-  { placeholder: 'wpisz nazwisko', name: 'surname' },
-  { placeholder: 'wpisz adres email', name: 'email' },
+  { type: 'text', placeholder: 'wpisz imię', name: 'firstname' },
+  { type: 'text', placeholder: 'wpisz nazwisko', name: 'surname' },
+  { type: 'text', placeholder: 'wpisz adres email', name: 'email' },
   { type: 'password', placeholder: 'wpisz hasło', name: 'password' },
 ];
 
