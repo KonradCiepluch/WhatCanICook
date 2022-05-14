@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useFormContext } from 'react-hook-form';
 
-import { useDetailsContext } from 'context/DetailsProvider';
+import { useDetailsContext } from 'context/DetailsProvider/DetailsProvider';
 import { Button, ListElement } from 'components/Atoms';
 import styles from './ProductsList.module.scss';
 

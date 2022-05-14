@@ -3,7 +3,7 @@ import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { useFormContext } from 'react-hook-form';
 
-import { useDetailsContext } from 'context/DetailsProvider';
+import { useDetailsContext } from 'context/DetailsProvider/DetailsProvider';
 import styles from './SelectTag.module.scss';
 
 const animatedComponents = makeAnimated();

@@ -12,5 +12,6 @@ export interface IRecipe extends ISubcategory {
   steps: { description: string; title: string; photo?: string; videoUrl?: string }[];
   tags: string[];
   time: number;
+  author: { name: string; email: string };
   youtubeUrl?: string;
 }

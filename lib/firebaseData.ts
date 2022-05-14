@@ -54,8 +54,7 @@ const uploadImage = async (photo: File) => {
 
 const addRecipe = async (recipe: IRecipe) => {
   try {
-    const result = await addDoc(recipesRef, recipe);
-    console.log(result);
+    await addDoc(recipesRef, recipe);
   } catch (e) {
     throw new Error(e);
   }
