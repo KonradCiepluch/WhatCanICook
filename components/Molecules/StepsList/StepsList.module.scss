@@ -1,0 +1,88 @@
+@import 'styles/_variables.scss';
+
+.steps {
+  margin-bottom: 40px;
+
+  &__hidden {
+    display: none;
+  }
+
+  &__heading {
+    margin-bottom: 10px;
+
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  &__add {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 10px;
+  }
+
+  &__area {
+    padding: 5px 10px;
+    border: 1px solid $border-color;
+
+    resize: none;
+  }
+
+  &__label {
+    margin: 10px 0;
+
+    text-align: center;
+  }
+
+  &__input {
+    margin: 10px 0;
+    padding: 10px 15px;
+    border: 1px solid $border-color;
+
+    &:nth-of-type(1) {
+      flex-grow: 1;
+    }
+  }
+
+  &__file {
+    display: flex;
+    align-items: center;
+  }
+
+  &__list {
+    padding: 5px 10px;
+    list-style: none;
+  }
+
+  &__remove {
+    width: auto;
+    margin: 0 0 0 5px;
+    padding: 13px 10px;
+
+    font-size: 14px;
+  }
+
+  &__button {
+    width: auto;
+    margin: 0 0 0 5px;
+    padding: 5px 10px;
+
+    font-size: 16px;
+  }
+
+  &__description {
+    margin-right: auto;
+
+    word-break: break-all;
+  }
+
+  &__error {
+    display: block;
+    margin-left: 15px;
+
+    color: red;
+    font-size: 14px;
+    line-height: 25px;
+  }
+}

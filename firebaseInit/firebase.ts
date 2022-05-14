@@ -2,9 +2,13 @@ import { initializeApp } from 'firebase/app';
 
 import { getAnalytics } from 'firebase/analytics';
 
+import { getFirestore, collection } from 'firebase/firestore';
+
 import { getAuth, FacebookAuthProvider, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 
 import firebaseConfig from 'firebaseConfig';
+
+import { getStorage } from 'firebase/storage';
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -18,18 +22,32 @@ import firebaseConfig from 'firebaseConfig';
 
 const app = initializeApp(firebaseConfig);
 
+// init storage
+
+const storage = getStorage(app);
+
 // const analytics = getAnalytics(app);
 
 // init services
 
-export const auth = getAuth();
+// init firestore
 
-export const createUserAuth = getAuth();
+const db = getFirestore(app);
 
-export const facebookProvider = new FacebookAuthProvider();
+const recipesRef = collection(db, 'recipes');
 
-export const googleProvider = new GoogleAuthProvider();
+const categoriesRef = collection(db, 'categories');
 
-export const githubProvider = new GithubAuthProvider();
+const tagsRef = collection(db, 'tags');
+
+const auth = getAuth();
+
+const facebookProvider = new FacebookAuthProvider();
+
+const googleProvider = new GoogleAuthProvider();
+
+const githubProvider = new GithubAuthProvider();
+
+export { recipesRef, categoriesRef, tagsRef, auth, facebookProvider, googleProvider, githubProvider, storage };
 
 export default app;

@@ -12,10 +12,11 @@ type Props = {
   inputsArray: IField[];
   schema: SchemaType;
   submitHandler: (data: FieldValues) => Promise<void>;
-  children?: (requestHandler: (type: StatusType, msg?: string) => void, isLoadingState: boolean) => React.ReactChild;
+  children?: (requestHandler: (type: StatusType, msg?: string) => void, isLoadingState: boolean, isSuccessState?: boolean) => React.ReactChild;
+  isBeforeSubmit?: boolean;
 };
 
-const PageForm = ({ content: { heading, successMessage, submitLabel }, inputsArray, schema, submitHandler, children }: Props) => {
+const PageForm = ({ content: { heading, successMessage, submitLabel }, inputsArray, schema, submitHandler, children, isBeforeSubmit }: Props) => {
   const [{ isErrorState, isLoadingState, isSuccessState, errMsg }, handleRequest] = useRequestState();
 
   const methods = useForm({ resolver: yupResolver(schema) });
@@ -31,7 +32,7 @@ const PageForm = ({ content: { heading, successMessage, submitLabel }, inputsArr
     }
   };
 
-  const fields = inputsArray.map((input) => <FormField key={input.name} {...input} />);
+  const fields = inputsArray.map((input) => FormField[input.type](input));
 
   return (
     <FormProvider {...methods}>
@@ -39,9 +40,10 @@ const PageForm = ({ content: { heading, successMessage, submitLabel }, inputsArr
       <form onSubmit={methods.handleSubmit(handleSubmitForm)} className={styles.form}>
         <h1 className={styles.form__heading}>{heading}</h1>
         {fields}
+        {isBeforeSubmit ? children(handleRequest, isLoadingState, isSuccessState) : null}
         <Button label={submitLabel} isLoading={isLoadingState} disabled={isLoadingState} />
         {isErrorState ? <span className={styles.form__error}>{errMsg}</span> : null}
-        {children ? children(handleRequest, isLoadingState) : null}
+        {children && !isBeforeSubmit ? children(handleRequest, isLoadingState) : null}
       </form>
     </FormProvider>
   );

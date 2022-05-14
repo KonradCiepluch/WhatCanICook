@@ -1,0 +1,17 @@
+.select {
+  margin-bottom: 20px;
+
+  &__hidden {
+    display: none;
+  }
+
+  &__error {
+    display: block;
+    margin-top: 10px;
+    margin-left: 15px;
+
+    color: red;
+    font-size: 14px;
+    line-height: 25px;
+  }
+}

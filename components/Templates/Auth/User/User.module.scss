@@ -1,4 +1,8 @@
 .user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   &__picture {
     display: block;
 
@@ -12,5 +16,20 @@
     margin: 10px 0;
 
     font-weight: 500;
+  }
+
+  &__link {
+    padding: 8px 12px;
+    border-radius: 12px;
+
+    font-weight: 600;
+    color: white;
+    background-color: rgb(19, 147, 233);
+
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }

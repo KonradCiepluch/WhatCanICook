@@ -4,10 +4,11 @@ import { RequiredStringSchema } from 'yup/lib/string';
 
 interface IField {
   name: string;
-  type?: string;
+  type: string;
   placeholder?: string;
   id?: string;
   label?: string;
+  disabled?: boolean;
 }
 
 export type SchemaType = yup.ObjectSchema<

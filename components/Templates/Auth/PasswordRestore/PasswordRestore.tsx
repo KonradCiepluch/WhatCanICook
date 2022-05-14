@@ -13,7 +13,7 @@ const schema = yup.object().shape({
   email: yup.string().email('Niepoprawny adres email').required('Adres email jest wymagany'),
 });
 
-const inputsArray = [{ placeholder: 'wpisz adres email', name: 'email' }];
+const inputsArray = [{ type: 'text', placeholder: 'wpisz adres email', name: 'email' }];
 
 const content = {
   heading: 'Odzyskiwanie hasła',

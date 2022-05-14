@@ -5,9 +5,9 @@ import Spinner from 'components/Atoms/Spinner/Spinner';
 import styles from './Button.module.scss';
 
 interface IProps {
-  isLoading: boolean;
   label: string;
   className?: string;
+  isLoading?: boolean;
   type?: 'submit' | 'button' | 'reset';
   disabled?: boolean;
   iconClass?: string;
@@ -19,7 +19,7 @@ const tapAnimation = {
 };
 
 const hoverAnimation = {
-  scale: 0.97,
+  scale: 0.95,
 };
 
 const Button = ({ type = 'submit', isLoading, className, label, disabled, iconClass, handleClick }: IProps) => (

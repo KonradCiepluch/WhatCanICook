@@ -5,7 +5,7 @@ import * as yup from 'yup';
 
 import { auth } from 'firebaseInit/firebase';
 import DefaultProfile from 'assets/defaultPic.png';
-import { Button, Message, Spinner, MotionWrapper } from 'components/Atoms';
+import { Button, Message, Spinner, MotionWrapper, NavLink } from 'components/Atoms';
 import { PageForm } from 'components/Organisms';
 import { useUser } from 'context/UserProvider';
 import useRequestState from 'hooks/useRequestState';
@@ -31,9 +31,9 @@ const [pictureContent, firstNameContent, lastNameContent] = [
 ];
 
 const [pictureInputs, firstNameInputs, lastNameInputs] = [
-  [{ placeholder: 'Podaj url do zdjęcia', name: 'image' }],
-  [{ placeholder: 'Wpisz imię', name: 'firstname' }],
-  [{ placeholder: 'Wpisz nazwisko', name: 'lastname' }],
+  [{ type: 'text', placeholder: 'Podaj url do zdjęcia', name: 'image' }],
+  [{ type: 'text', placeholder: 'Wpisz imię', name: 'firstname' }],
+  [{ type: 'text', placeholder: 'Wpisz nazwisko', name: 'lastname' }],
 ];
 
 const [imageSchema, firstNameSchema, surnameSchema] = [
@@ -120,6 +120,7 @@ const User = () => {
       <div className={userStyles.user}>
         <img src={authenticatedUser.photoURL || DefaultProfile.src} alt="profile picture" className={userStyles.user__picture} />
         <p className={userStyles.user__name}>{authenticatedUser.displayName}</p>
+        <NavLink href="/uzytkownik/przepis" label="Dodaj przepis" className={userStyles.user__link} />
       </div>
       <Button type="button" label="Wyloguj się" handleClick={handleClick} isLoading={isLoadingState} />
       {isErrorState ? <span className={styles.form__error}>{errMsg}</span> : null}

@@ -1,0 +1,77 @@
+@import 'styles/_variables.scss';
+
+.products {
+  margin-bottom: 20px;
+
+  &__hidden {
+    display: none;
+  }
+
+  &__heading {
+    margin-bottom: 10px;
+
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  &__add {
+    display: flex;
+
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    padding: 5px 10px;
+    border: 1px solid $border-color;
+
+    &:nth-child(1) {
+      flex-grow: 1;
+    }
+
+    &:nth-child(2) {
+      width: 60px;
+      margin: 0 5px;
+
+      text-align: center;
+    }
+  }
+
+  &__select {
+    background-color: #fff;
+    border: 1px solid $border-color;
+  }
+
+  &__list {
+    padding: 5px 10px;
+    list-style: none;
+  }
+
+  &__button {
+    width: auto;
+    margin: 0 0 0 5px;
+    padding: 5px 10px;
+
+    font-size: 16px;
+  }
+
+  &__error {
+    display: block;
+    margin-left: 15px;
+
+    color: red;
+    font-size: 14px;
+    line-height: 25px;
+  }
+
+  &__name {
+    margin-right: 10px;
+    word-break: break-all;
+  }
+
+  &__amount {
+    flex-shrink: 0;
+    margin-left: auto;
+    margin-right: 30px;
+  }
+}
