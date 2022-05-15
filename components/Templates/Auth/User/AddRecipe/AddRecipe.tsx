@@ -13,13 +13,13 @@ import imgFileTypes from 'utils/imgFileTypes';
 import getStepsWithUrl from 'utils/getStepsWithUrl';
 import { uploadImage, addRecipe } from 'lib/firebaseData';
 import { useUser } from 'context/UserProvider';
-import { useDetailsContext } from 'context/DetailsProvider';
+import { useDetailsContext } from 'context/DetailsProvider/DetailsProvider';
 
 type Props = { categories: ICategory[]; tags: string[] };
 
 // regexp for time range 5 too 500
 const timeRangeRegexp = /^(500|[1-4][0-9][0-9]|[1-9][0-9]|[5-9])$/;
-// rexexp for youtube link
+// regexp for youtube link
 const youtubeRegexp = new RegExp('^https://www.youtube.com/');
 
 const schema = yup.object().shape({
@@ -88,13 +88,14 @@ const AddRecipe = ({ categories, tags }: Props) => {
         const recipe = {
           name,
           slug: getSlug(name),
-          category: { name: catName, subcategory },
+          category: { name: catName, subcategory, categorySlug: getSlug(catName), subcategorySlug: getSlug(subcategory) },
           photo: photoUrl,
           difficultyLevel: Number(level),
           shoppingList,
           steps: stepsWithUrl,
           tags: tagList,
           time,
+          author: { name: authenticatedUser.displayName, email: authenticatedUser.email },
         } as IRecipe;
 
         await addRecipe(recipe);

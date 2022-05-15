@@ -19,6 +19,7 @@ const RecipeTemplate = ({
     shoppingList,
     steps,
     category: { name: category, subcategory, categorySlug, subcategorySlug },
+    author,
   },
 }: Props) => {
   const linkLabels = useMemo(() => {
@@ -46,10 +47,13 @@ const RecipeTemplate = ({
         className: styles.wrapper__description,
         mainTitle: name,
         content: (
-          <div className={styles.wrapper__details}>
-            <LevelWidget level={difficultyLevel} />
-            <TimeWidget time={time} />
-          </div>
+          <>
+            {author ? <p className={styles.wrapper__author}>Autor: {author.name}</p> : null}
+            <div className={styles.wrapper__details}>
+              <LevelWidget level={difficultyLevel} />
+              <TimeWidget time={time} />
+            </div>
+          </>
         ),
       },
       {
@@ -77,7 +81,7 @@ const RecipeTemplate = ({
         ),
       },
     ],
-    [difficultyLevel, ingredients, name, photo, recipeSteps, tags, time]
+    [difficultyLevel, ingredients, name, photo, recipeSteps, tags, time, author]
   );
 
   const articles = pageContent.map(({ content, ...props }) => (

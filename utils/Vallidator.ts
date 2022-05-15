@@ -1,9 +1,7 @@
-import { IProduct, IStep } from 'context/DetailsProvider';
+import { IProduct, IStep } from 'context/DetailsProvider/types';
 import imgFileTypes from './imgFileTypes';
 
 class Validator {
-  private static amountRegexp = /^(10000|[1-9][1-9][0-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9]|[1-9])$/;
-
   private static productErrorMessages = { name: 'Nazwa musi się składać min z 3 znaków', amount: 'Ilość powinna wynosić od 1 do 10000' };
 
   private static stepErrorMessages = {
@@ -25,7 +23,8 @@ class Validator {
   }
 
   private static validateAmount(amount: string) {
-    return Validator.amountRegexp.test(amount);
+    const amountNumber = Number(amount);
+    return amountNumber % 1 === 0 && amountNumber >= 1 && amountNumber && amountNumber <= 10000;
   }
 
   private static validateDescription(description: string) {

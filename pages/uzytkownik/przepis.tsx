@@ -4,7 +4,7 @@ import { GetStaticProps } from 'next';
 import { getCategories, getTags } from 'lib/firebaseData';
 import { ICategory } from 'interfaces/Menu';
 import { AddRecipe } from 'components/Templates';
-import DetailsProvider from 'context/DetailsProvider';
+import DetailsProvider from 'context/DetailsProvider/DetailsProvider';
 
 type Props = { categories: ICategory[]; tags: string[] };
 

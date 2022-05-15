@@ -1,4 +1,4 @@
-import { IStep } from 'context/DetailsProvider';
+import { IStep } from 'context/DetailsProvider/types';
 import { uploadImage } from 'lib/firebaseData';
 
 interface IStepUrl {
