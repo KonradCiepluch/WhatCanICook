@@ -5,3 +5,4 @@ export { default as ProductsList } from './ProductsList/ProductsList';
 export { default as StepsList } from './StepsList/StepsList';
 export { default as SelectTag } from './SelectTag/SelectTag';
 export { default as BreadCrumbs } from './BreadCrumbs/BreadCrumbs';
+export { default as SearchBar } from './SearchBar/SearchBar';

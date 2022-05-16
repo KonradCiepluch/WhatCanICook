@@ -10,3 +10,5 @@ export { default as Ingredient } from './Ingredient/Ingredient';
 export { default as Step } from './Step/Step';
 export { default as RecipeArticle } from './RecipeArticle/RecipeArticle';
 export { default as ListElement } from './ListElement/ListElement';
+export { default as SearchInput } from './SearchInput/SearchInput';
+export { default as SearchElement } from './SearchElement/SearchElement';

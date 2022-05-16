@@ -1,0 +1,56 @@
+@import 'styles/_variables.scss';
+
+.search {
+  position: relative;
+
+  width: 300px;
+  margin: 0 auto;
+
+  &__input {
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+    border: 1px solid transparent;
+
+    color: white;
+
+    transform: scaleX(0);
+    transition: transform 0.3s $easing, border-color 0.3s $easing, border-radius 0.3s $easing, color 0.3s $easing;
+  }
+  &__button {
+    position: absolute;
+    right: 0;
+
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+
+    background-color: $nav-background;
+    font-size: 20px;
+    color: white;
+
+    transform: translateX(-130px);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+    cursor: pointer;
+  }
+
+  &--active {
+    & .search__input {
+      border-radius: 10px;
+      border-color: $nav-background;
+
+      color: black;
+
+      transform: scaleX(1);
+    }
+
+    & .search__button {
+      background-color: transparent;
+      color: $nav-background;
+
+      transform: translateX(0) scale(0.9);
+    }
+  }
+}
