@@ -23,7 +23,7 @@ const whileTapAnimation = {
 
 interface IProps {
   id: string;
-  handleRemove: (name: string) => void;
+  handleRemove: (id: string) => void;
   children: React.ReactNode;
 }
 

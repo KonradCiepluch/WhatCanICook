@@ -3,17 +3,19 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { getCategories } from 'lib/firebaseData';
+import { getCategories, getRecipes } from 'lib/firebaseData';
 import Layout from 'components/Templates/Layout/Layout';
 import UserProvider from 'context/UserProvider';
 import { ICategory } from 'interfaces/Menu';
+import { IRecipe } from 'interfaces/Recipe';
 import 'styles/Global.scss';
 
 interface IApp extends AppProps {
   categories: ICategory[];
+  recipes: IRecipe[];
 }
 
-const App = ({ Component, pageProps, categories }: IApp) => {
+const App = ({ Component, pageProps, categories, recipes }: IApp) => {
   const { pathname } = useRouter();
 
   return (
@@ -26,7 +28,7 @@ const App = ({ Component, pageProps, categories }: IApp) => {
         ></link>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"></link>
       </Head>
-      <Layout categories={categories}>
+      <Layout categories={categories} recipes={recipes}>
         <Component key={pathname} {...pageProps} />
       </Layout>
     </UserProvider>
@@ -38,10 +40,11 @@ export default App;
 App.getInitialProps = async () => {
   try {
     const categories = await getCategories();
+    const recipes = await getRecipes();
 
-    return { categories };
+    return { categories, recipes };
   } catch (e) {
     console.error(e);
-    return { categories: [] };
+    return { categories: [], recipes: [] };
   }
 };
