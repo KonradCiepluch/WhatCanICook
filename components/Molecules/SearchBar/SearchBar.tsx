@@ -25,6 +25,12 @@ const SearchBar = ({ recipes }: IProps) => {
 
   const handleChange = useCallback(({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => setInputValue(value), []);
 
+  const handleClear = useCallback(() => {
+    setInputValue('');
+    setFoundRecipes([]);
+    setIsActive(false);
+  }, []);
+
   const searchRecipes = useCallback(
     debounce((searchPhrase: string) => {
       const recipesByPhrase = recipes.filter(({ name }) => name.toLowerCase().startsWith(searchPhrase.toLowerCase()));
@@ -39,7 +45,7 @@ const SearchBar = ({ recipes }: IProps) => {
   }, [inputValue, searchRecipes]);
 
   const items = foundRecipes.map(({ name, photo, slug, category: { categorySlug, subcategorySlug } }) => (
-    <SearchElement key={name} href={`/przepisy/${categorySlug}/${subcategorySlug}/${slug}`} photoUrl={photo} label={name} />
+    <SearchElement key={name} href={`/przepisy/${categorySlug}/${subcategorySlug}/${slug}`} photoUrl={photo} label={name} handleClear={handleClear} />
   ));
 
   const isListActive = isActive && inputValue && foundRecipes.length;

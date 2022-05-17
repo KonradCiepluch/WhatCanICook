@@ -1,4 +1,4 @@
-type UnitsType = 'gram' | 'kg' | 'szt' | 'ml' | 'l';
+export type UnitsType = 'gram' | 'kg' | 'szt' | 'ml' | 'l';
 
 export interface IProduct {
   name: string;

@@ -74,7 +74,7 @@ const AddRecipe = ({ categories, tags }: Props) => {
     [categories]
   );
 
-  const shoppingList = useMemo(() => products.map(({ name, amount, unit }) => ({ product: { name, amount: `${amount} ${unit}` } })), [products]);
+  const shoppingList = useMemo(() => products.map(({ name, amount, unit }) => ({ product: { name, amount, unit } })), [products]);
 
   const handleSubmit = useCallback(
     async ({ photo, name, category: catName, subcategory, level, time }: FieldValues) => {

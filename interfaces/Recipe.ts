@@ -8,7 +8,7 @@ export interface IRecipe extends ISubcategory {
     subcategorySlug: string;
   };
   difficultyLevel: 1 | 2 | 3;
-  shoppingList: { product: { amount: string; name: string } }[];
+  shoppingList: { product: { amount: string; unit: string; name: string } }[];
   steps: { description: string; title: string; photo?: string; videoUrl?: string }[];
   tags: string[];
   time: number;

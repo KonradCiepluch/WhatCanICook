@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import Image from 'next/image';
 
 import { IRecipe } from 'interfaces/Recipe';
-import { TimeWidget, LevelWidget, Ingredient, Step, RecipeArticle } from 'components/Atoms';
+import { TimeWidget, LevelWidget, Ingredient, Step, RecipeArticle, Button } from 'components/Atoms';
 import { BreadCrumbs } from 'components/Molecules';
+import { useUser } from 'context/UserProvider';
 import styles from './RecipeTemplate.module.scss';
 
 type Props = { recipe: IRecipe };
@@ -22,6 +23,8 @@ const RecipeTemplate = ({
     author,
   },
 }: Props) => {
+  const { authenticatedUser } = useUser();
+
   const linkLabels = useMemo(() => {
     return [
       { label: 'What can I cook', href: '/' },
@@ -63,7 +66,12 @@ const RecipeTemplate = ({
       {
         className: styles.wrapper__ingredients,
         title: 'Składniki',
-        content: <ul>{ingredients}</ul>,
+        content: (
+          <>
+            <ul>{ingredients}</ul>
+            {authenticatedUser ? <Button label="Dodaj do listy zakupów" className={styles.wrapper__button} /> : null}
+          </>
+        ),
       },
       {
         className: styles.wrapper__steps,
@@ -81,7 +89,7 @@ const RecipeTemplate = ({
         ),
       },
     ],
-    [difficultyLevel, ingredients, name, photo, recipeSteps, tags, time, author]
+    [difficultyLevel, ingredients, name, photo, recipeSteps, tags, time, author, authenticatedUser]
   );
 
   const articles = pageContent.map(({ content, ...props }) => (
