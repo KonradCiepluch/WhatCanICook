@@ -56,6 +56,12 @@
     }
   }
 
+  &__error {
+    margin-top: 10px;
+    color: red;
+    text-align: center;
+  }
+
   &__button {
     width: auto;
     margin: 15px auto;

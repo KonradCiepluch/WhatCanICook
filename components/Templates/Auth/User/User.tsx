@@ -2,6 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { signOut, updateProfile } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
+import { removeCookies } from 'cookies-next';
 
 import { auth } from 'firebaseInit/firebase';
 import DefaultProfile from 'assets/defaultPic.png';
@@ -48,8 +49,13 @@ const [imageSchema, firstNameSchema, surnameSchema] = [
   }),
 ];
 
+const links = [
+  { label: 'Dodaj przepis', href: '/uzytkownik/przepis' },
+  { label: 'Lista zakupów', href: '/uzytkownik/lista-zakupow' },
+];
+
 const User = () => {
-  const [{ isErrorState, isLoadingState, isSuccessState, errMsg }, handleRequest] = useRequestState(true);
+  const [{ isErrorState, isLoadingState, isSuccessState, errMsg }, handleRequest, handleResetRequest] = useRequestState(true);
 
   const { handleSignOutUser, authenticatedUser } = useUser();
 
@@ -60,8 +66,8 @@ const User = () => {
       push('/login');
       return;
     }
-    setTimeout(() => handleRequest('none'), 150);
-  }, [handleRequest, authenticatedUser, push]);
+    setTimeout(handleResetRequest, 150);
+  }, [handleResetRequest, authenticatedUser, push]);
 
   const handleUpdateProfile = useCallback(
     async (valueToChange: 'displayName' | 'photoURL', value: string) => {
@@ -78,7 +84,11 @@ const User = () => {
     async ({ firstname }) => {
       const { displayName } = authenticatedUser;
       const [, surname] = displayName.split(' ');
-      await handleUpdateProfile('displayName', `${firstname} ${surname}`);
+      try {
+        await handleUpdateProfile('displayName', `${firstname} ${surname}`);
+      } catch (e) {
+        throw new Error(e);
+      }
     },
     [authenticatedUser, handleUpdateProfile]
   );
@@ -87,28 +97,37 @@ const User = () => {
     async ({ lastname }) => {
       const { displayName } = authenticatedUser;
       const [firstname] = displayName.split(' ');
-      await handleUpdateProfile('displayName', `${firstname} ${lastname}`);
+      try {
+        await handleUpdateProfile('displayName', `${firstname} ${lastname}`);
+      } catch (e) {
+        throw new Error(e);
+      }
     },
     [authenticatedUser, handleUpdateProfile]
   );
 
   const handleChangePhoto = useCallback(
     async ({ image }) => {
-      await handleUpdateProfile('photoURL', image);
+      try {
+        await handleUpdateProfile('photoURL', image);
+      } catch (e) {
+        throw new Error(e);
+      }
     },
     [handleUpdateProfile]
   );
 
   const handleClick = async () => {
     try {
-      handleRequest('pending');
       await signOut(auth);
       handleSignOutUser();
-      handleRequest('success');
+      removeCookies('userId');
     } catch (e) {
-      handleRequest('error', e.message);
+      throw new Error(e);
     }
   };
+
+  const navLinks = links.map(({ href, label }) => <NavLink key={label} href={href} label={label} className={userStyles.user__link} />);
 
   return isSuccessState ? (
     <Message message="Zostałeś wylogowany" />
@@ -120,9 +139,9 @@ const User = () => {
       <div className={userStyles.user}>
         <img src={authenticatedUser.photoURL || DefaultProfile.src} alt="profile picture" className={userStyles.user__picture} />
         <p className={userStyles.user__name}>{authenticatedUser.displayName}</p>
-        <NavLink href="/uzytkownik/przepis" label="Dodaj przepis" className={userStyles.user__link} />
+        <nav className={userStyles.user__nav}>{navLinks}</nav>
       </div>
-      <Button type="button" label="Wyloguj się" handleClick={handleClick} isLoading={isLoadingState} />
+      <Button type="button" label="Wyloguj się" handleClick={() => handleRequest(handleClick)} isLoading={isLoadingState} />
       {isErrorState ? <span className={styles.form__error}>{errMsg}</span> : null}
       <PageForm content={pictureContent} inputsArray={pictureInputs} schema={imageSchema} submitHandler={handleChangePhoto} />
       <PageForm content={firstNameContent} inputsArray={firstNameInputs} schema={firstNameSchema} submitHandler={handleChangeFirstName} />

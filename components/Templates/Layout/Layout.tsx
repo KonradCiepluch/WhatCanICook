@@ -6,8 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 
 import { useUser } from 'context/UserProvider';
 import { auth } from 'firebaseInit/firebase';
-import { ICategory } from 'interfaces/Menu';
-import { IRecipe } from 'interfaces/Recipe';
+import { ICategory, IRecipe } from 'interfaces';
 import { Navigation, SearchBar } from 'components/Molecules';
 import logoImage from 'assets/logo.png';
 import styles from './Layout.module.scss';

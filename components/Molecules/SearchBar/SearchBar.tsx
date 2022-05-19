@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import debounce from 'lodash.debounce';
 import { useOnClickOutside } from 'usehooks-ts';
 
-import { IRecipe } from 'interfaces/Recipe';
+import { IRecipe } from 'interfaces';
 import { SearchInput, SearchElement } from 'components/Atoms';
 import styles from './SearchBar.module.scss';
 

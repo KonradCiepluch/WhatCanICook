@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 
 import RecipeTemplate from 'components/Templates/Recipes/RecipeTemplate/RecipeTemplate';
 import { getRecipes } from 'lib/firebaseData';
-import { IRecipe } from 'interfaces/Recipe';
+import { IRecipe } from 'interfaces';
 
 type Props = { recipe: IRecipe };
 

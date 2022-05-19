@@ -1,5 +1,5 @@
 import React from 'react';
-import LoaderLogo from '../../../assets/spinner.svg';
+import LoaderLogo from 'assets/spinner.svg';
 
 import styles from './Spinner.module.scss';
 

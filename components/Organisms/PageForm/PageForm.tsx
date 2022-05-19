@@ -2,9 +2,9 @@ import React from 'react';
 import { useForm, FormProvider, FieldValues, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import useRequestState, { StatusType } from 'hooks/useRequestState';
+import useRequestState from 'hooks/useRequestState';
 import { Button, Message, FormField } from 'components/Atoms';
-import IField, { SchemaType } from 'interfaces/Form';
+import { IField, SchemaType } from 'interfaces';
 import styles from './PageForm.module.scss';
 
 type Props = {
@@ -12,7 +12,11 @@ type Props = {
   inputsArray: IField[];
   schema: SchemaType;
   submitHandler: (data: FieldValues) => Promise<void>;
-  children?: (requestHandler: (type: StatusType, msg?: string) => void, isLoadingState: boolean, isSuccessState?: boolean) => React.ReactChild;
+  children?: (
+    requestHandler: (handler: () => Promise<void>, msg?: string) => void,
+    isLoadingState: boolean,
+    isSuccessState?: boolean
+  ) => React.ReactChild;
   isBeforeSubmit?: boolean;
 };
 
@@ -23,12 +27,10 @@ const PageForm = ({ content: { heading, successMessage, submitLabel }, inputsArr
 
   const handleSubmitForm: SubmitHandler<FieldValues> = async (data) => {
     try {
-      handleRequest('pending');
       await submitHandler(data);
-      handleRequest('success');
       methods.reset();
     } catch (e) {
-      handleRequest('error', e.message);
+      throw new Error(e);
     }
   };
 
@@ -37,7 +39,7 @@ const PageForm = ({ content: { heading, successMessage, submitLabel }, inputsArr
   return (
     <FormProvider {...methods}>
       {isSuccessState && successMessage ? <Message message={successMessage} /> : null}
-      <form onSubmit={methods.handleSubmit(handleSubmitForm)} className={styles.form}>
+      <form onSubmit={methods.handleSubmit((data) => handleRequest(() => handleSubmitForm(data)))} className={styles.form}>
         <h1 className={styles.form__heading}>{heading}</h1>
         {fields}
         {isBeforeSubmit ? children(handleRequest, isLoadingState, isSuccessState) : null}

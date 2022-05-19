@@ -2,7 +2,7 @@ import React from 'react';
 import { GetStaticProps } from 'next';
 
 import { getCategories, getTags } from 'lib/firebaseData';
-import { ICategory } from 'interfaces/Menu';
+import { ICategory } from 'interfaces';
 import { AddRecipe } from 'components/Templates';
 import DetailsProvider from 'context/DetailsProvider/DetailsProvider';
 

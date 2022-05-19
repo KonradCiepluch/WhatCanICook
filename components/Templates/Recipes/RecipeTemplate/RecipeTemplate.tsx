@@ -1,10 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import Image from 'next/image';
 
-import { IRecipe } from 'interfaces/Recipe';
+import { IRecipe } from 'interfaces';
 import { TimeWidget, LevelWidget, Ingredient, Step, RecipeArticle, Button } from 'components/Atoms';
 import { BreadCrumbs } from 'components/Molecules';
 import { useUser } from 'context/UserProvider';
+import useRequestState from 'hooks/useRequestState';
+import { addToShoppingList } from 'lib/firebaseData';
 import styles from './RecipeTemplate.module.scss';
 
 type Props = { recipe: IRecipe };
@@ -25,6 +27,16 @@ const RecipeTemplate = ({
 }: Props) => {
   const { authenticatedUser } = useUser();
 
+  const [{ isLoadingState, isErrorState }, handleRequest] = useRequestState();
+
+  const handleAddProducts = useCallback(async () => {
+    try {
+      await addToShoppingList(authenticatedUser.uid, shoppingList);
+    } catch (e) {
+      throw new Error(e);
+    }
+  }, [shoppingList]);
+
   const linkLabels = useMemo(() => {
     return [
       { label: 'What can I cook', href: '/' },
@@ -42,7 +54,7 @@ const RecipeTemplate = ({
 
   const recipeSteps = steps.map((step, index) => <Step key={step.description} index={index + 1} {...step} />);
 
-  const ingredients = shoppingList.map(({ product }) => <Ingredient key={product.name} {...product} />);
+  const ingredients = shoppingList.map((product) => <Ingredient key={product.name} {...product} />);
 
   const pageContent = useMemo(
     () => [
@@ -69,7 +81,16 @@ const RecipeTemplate = ({
         content: (
           <>
             <ul>{ingredients}</ul>
-            {authenticatedUser ? <Button label="Dodaj do listy zakupów" className={styles.wrapper__button} /> : null}
+            {authenticatedUser ? (
+              <Button
+                label="Dodaj do listy zakupów"
+                className={styles.wrapper__button}
+                handleClick={() => handleRequest(handleAddProducts)}
+                isLoading={isLoadingState}
+                disabled={isLoadingState}
+              />
+            ) : null}
+            {isErrorState ? <p className={styles.wrapper__error}>Podczas operacji dodania produktów wystąpił błąd. Przepraszamy</p> : null}
           </>
         ),
       },
@@ -89,7 +110,21 @@ const RecipeTemplate = ({
         ),
       },
     ],
-    [difficultyLevel, ingredients, name, photo, recipeSteps, tags, time, author, authenticatedUser]
+    [
+      difficultyLevel,
+      ingredients,
+      name,
+      photo,
+      recipeSteps,
+      tags,
+      time,
+      author,
+      authenticatedUser,
+      handleAddProducts,
+      handleRequest,
+      isErrorState,
+      isLoadingState,
+    ]
   );
 
   const articles = pageContent.map(({ content, ...props }) => (

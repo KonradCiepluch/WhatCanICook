@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { BreadCrumbs } from 'components/Molecules';
-import { ICategory } from 'interfaces/Menu';
+import { ICategory } from 'interfaces';
 import styles from './Category.module.scss';
 
 type Props = { category: ICategory };

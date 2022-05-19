@@ -1,9 +1,9 @@
-import { getDocs, addDoc } from 'firebase/firestore';
+import { getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { uploadBytes, getDownloadURL, ref } from 'firebase/storage';
 
-import { recipesRef, categoriesRef, tagsRef, storage } from 'firebaseInit/firebase';
-import { IRecipe } from 'interfaces/Recipe';
-import { ICategoriesCollection } from 'interfaces/Menu';
+import { recipesRef, categoriesRef, tagsRef, userListsRef, getUserListRef, storage } from 'firebaseInit/firebase';
+import { IRecipe, IUserShoppingList, IProductItem, ICategoriesCollection } from 'interfaces';
+import aggregateProducts from 'utils/aggregateProducts';
 
 const getRecipes = async () => {
   try {
@@ -60,4 +60,48 @@ const addRecipe = async (recipe: IRecipe) => {
   }
 };
 
-export { getRecipes, getCategories, getTags, uploadImage, addRecipe };
+const getShoppingList = async (userId: string) => {
+  try {
+    const { docs } = await getDocs(userListsRef);
+
+    const lists = docs.map((doc) => ({ ...doc.data(), docId: doc.id })) as IUserShoppingList[];
+
+    const foundList = lists.find(({ uid }) => uid === userId);
+
+    if (!foundList) return null;
+
+    return foundList;
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+const addToShoppingList = async (userId: string, products: IProductItem[]) => {
+  try {
+    const userList = await getShoppingList(userId);
+
+    if (!userList) {
+      await addDoc(userListsRef, { uid: userId, products });
+      return;
+    }
+
+    const updatedProductsList = aggregateProducts(userList.products, products);
+
+    const docRef = getUserListRef(userList.docId);
+
+    await updateDoc(docRef, { products: updatedProductsList });
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+const deleteShoppingList = async (id: string) => {
+  try {
+    const docRef = getUserListRef(id);
+    await deleteDoc(docRef);
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export { getRecipes, getCategories, getTags, uploadImage, addRecipe, getShoppingList, addToShoppingList, deleteShoppingList };

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Recipe, BreadCrumbs } from 'components/Molecules';
-import { IRecipe } from 'interfaces/Recipe';
+import { IRecipe } from 'interfaces';
 import styles from './Subcategory.module.scss';
 
 type Props = { category: string; subcategory: string; categorySlug: string; subcategorySlug: string; recipes: IRecipe[] };

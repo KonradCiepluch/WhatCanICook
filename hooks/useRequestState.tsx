@@ -10,7 +10,8 @@ export type StatusType = 'success' | 'pending' | 'error' | 'none';
 
 type ReturnType = [
   { isLoadingState: boolean; isSuccessState: boolean; isErrorState: boolean; errMsg: string },
-  (type: StatusType, msg?: string) => void
+  (handler: () => Promise<void>, msg?: string) => Promise<void>,
+  () => void
 ];
 
 const useRequestState = (loading?: boolean): ReturnType => {
@@ -22,11 +23,19 @@ const useRequestState = (loading?: boolean): ReturnType => {
 
   const isErrorState = state.type === 'error';
 
-  const handleRequest = useCallback((status: StatusType, msg: string = '') => {
-    setState({ type: status, errMsg: msg });
+  const handleRequest = useCallback(async (handler: () => Promise<void>, msg?: string) => {
+    setState({ type: 'pending', errMsg: '' });
+    try {
+      await handler();
+      setState({ type: 'success', errMsg: '' });
+    } catch (e) {
+      setState({ type: 'error', errMsg: msg || e.message });
+    }
   }, []);
 
-  return [{ isLoadingState, isSuccessState, isErrorState, errMsg: state.errMsg }, handleRequest];
+  const handleResetRequest = useCallback(() => setState({ type: 'none', errMsg: '' }), []);
+
+  return [{ isLoadingState, isSuccessState, isErrorState, errMsg: state.errMsg }, handleRequest, handleResetRequest];
 };
 
 export default useRequestState;

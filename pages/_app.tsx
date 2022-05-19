@@ -6,8 +6,7 @@ import { useRouter } from 'next/router';
 import { getCategories, getRecipes } from 'lib/firebaseData';
 import Layout from 'components/Templates/Layout/Layout';
 import UserProvider from 'context/UserProvider';
-import { ICategory } from 'interfaces/Menu';
-import { IRecipe } from 'interfaces/Recipe';
+import { ICategory, IRecipe } from 'interfaces';
 import 'styles/Global.scss';
 
 interface IApp extends AppProps {
