@@ -1,7 +1,7 @@
 import React from 'react';
 
 import getSlug from 'utils/getSlug';
-import { ICategory } from 'interfaces/Menu';
+import { ICategory } from 'interfaces';
 import { NavLink } from 'components/Atoms';
 import styles from './Navigation.module.scss';
 

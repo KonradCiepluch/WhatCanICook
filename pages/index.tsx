@@ -6,7 +6,6 @@ import { recipesRef } from 'firebaseInit/firebase';
 type Props = { recipes: any };
 
 const HomePage = ({ recipes }: Props) => {
-  console.log(recipes);
   return <div>Home</div>;
 };
 

@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 
 import { Category } from 'components/Templates';
 import { getCategories } from 'lib/firebaseData';
-import { ICategory } from 'interfaces/Menu';
+import { ICategory } from 'interfaces';
 
 type Props = { category: ICategory };
 

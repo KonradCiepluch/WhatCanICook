@@ -6,8 +6,7 @@ import { useRouter } from 'next/router';
 import { MotionWrapper } from 'components/Atoms';
 import { ProductsList, StepsList, SelectTag } from 'components/Molecules';
 import { PageForm } from 'components/Organisms';
-import { ICategory, ISubcategory } from 'interfaces/Menu';
-import { IRecipe } from 'interfaces/Recipe';
+import { ICategory, ISubcategory, IRecipe } from 'interfaces';
 import getSlug from 'utils/getSlug';
 import imgFileTypes from 'utils/imgFileTypes';
 import getStepsWithUrl from 'utils/getStepsWithUrl';
@@ -74,7 +73,7 @@ const AddRecipe = ({ categories, tags }: Props) => {
     [categories]
   );
 
-  const shoppingList = useMemo(() => products.map(({ name, amount, unit }) => ({ product: { name, amount: `${amount} ${unit}` } })), [products]);
+  const shoppingList = useMemo(() => products.map(({ id, ...product }) => product), [products]);
 
   const handleSubmit = useCallback(
     async ({ photo, name, category: catName, subcategory, level, time }: FieldValues) => {

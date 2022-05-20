@@ -2,7 +2,7 @@ import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import { getRecipes, getCategories } from 'lib/firebaseData';
-import { IRecipe } from 'interfaces/Recipe';
+import { IRecipe } from 'interfaces';
 import Subcategory from 'components/Templates/Recipes/Subcategory/Subcategory';
 
 type Props = { category: string; subcategory: string; categorySlug: string; subcategorySlug: string; recipes: IRecipe[] };

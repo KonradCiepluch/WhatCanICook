@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { IRecipe } from 'interfaces/Recipe';
+import { IRecipe } from 'interfaces';
 import { LevelWidget, TimeWidget } from 'components/Atoms';
 import styles from './Recipe.module.scss';
 

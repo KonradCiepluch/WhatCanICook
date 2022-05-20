@@ -56,6 +56,18 @@
     }
   }
 
+  &__error {
+    margin-top: 10px;
+    color: red;
+    text-align: center;
+  }
+
+  &__button {
+    width: auto;
+    margin: 15px auto;
+    padding: 5px 30px;
+  }
+
   &__tags {
     grid-column: 1/-1;
   }

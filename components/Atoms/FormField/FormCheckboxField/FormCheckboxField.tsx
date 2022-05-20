@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useFormContext } from 'react-hook-form';
 
-import IField from 'interfaces/Form';
+import { IField } from 'interfaces';
 import styles from '../FormField.module.scss';
 
 const FormCheckboxField = ({ name, id, label }: IField) => {

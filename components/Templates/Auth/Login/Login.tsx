@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import * as yup from 'yup';
 import { signInWithEmailAndPassword, browserLocalPersistence, browserSessionPersistence, setPersistence } from 'firebase/auth';
 import { FieldValues } from 'react-hook-form';
+import { setCookies } from 'cookies-next';
 
 import { auth } from 'firebaseInit/firebase';
 import { MotionWrapper } from 'components/Atoms';
@@ -53,6 +54,8 @@ const Login = () => {
         } else await setPersistence(auth, browserSessionPersistence);
 
         const { user } = await signInWithEmailAndPassword(auth, email, password);
+
+        setCookies('userId', user.uid);
 
         handleSignInUser(user);
       } catch (e) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import IField from 'interfaces/Form';
+import { IField } from 'interfaces';
 import styles from '../FormField.module.scss';
 
 const FormFileField = ({ name, disabled, placeholder, label }: IField) => {
