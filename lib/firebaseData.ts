@@ -104,24 +104,4 @@ const deleteShoppingList = async (id: string) => {
   }
 };
 
-const downloadPdfFile = async (content: string) => {
-  try {
-    const res = await fetch('/api/pdf', { method: 'post', body: content });
-
-    const file = await res.blob();
-
-    const a = document.createElement('a');
-
-    a.href = URL.createObjectURL(file);
-
-    a.download = 'products.pdf';
-
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  } catch (e) {
-    throw new Error(e);
-  }
-};
-
-export { getRecipes, getCategories, getTags, uploadImage, addRecipe, getShoppingList, addToShoppingList, deleteShoppingList, downloadPdfFile };
+export { getRecipes, getCategories, getTags, uploadImage, addRecipe, getShoppingList, addToShoppingList, deleteShoppingList };

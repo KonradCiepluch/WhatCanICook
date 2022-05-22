@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 
 import { useUser } from 'context/UserProvider';
 import useRequestState from 'hooks/useRequestState';
-import { deleteShoppingList, downloadPdfFile } from 'lib/firebaseData';
+import { deleteShoppingList } from 'lib/firebaseData';
+import downloadPdfFile from 'lib/pdfDownloader';
 import { IUserShoppingList } from 'interfaces';
 import { MotionWrapper, Button } from 'components/Atoms';
 import PdfList from './PdfList';
