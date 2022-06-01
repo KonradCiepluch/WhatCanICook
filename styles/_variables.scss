@@ -1,8 +1,11 @@
 $nav-background: #e44b5f;
+$footer-background: #fe847b;
 $border-color: rgb(201, 201, 201);
 $easing: cubic-bezier(0, 0.16, 0.52, 2.01);
 
 $breakpoints: (
+  small: 'max-width: 520px',
+  medium: 'max-width: 640px',
   large: 'max-width: 1024px',
   xlarge: 'max-width: 1240px',
 );

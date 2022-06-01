@@ -1,0 +1,70 @@
+@import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  padding: 50px 70px;
+  margin-top: auto;
+
+  background-color: $footer-background;
+
+  @include mq(large) {
+    flex-direction: column;
+  }
+
+  @include mq(medium) {
+    padding: 30px 70px;
+  }
+
+  &__image {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 0 10px;
+
+    @include mq(large) {
+      flex-direction: column;
+      gap: 10px 0;
+
+      margin-bottom: 20px;
+    }
+
+    @include mq(medium) {
+      font-size: 15px;
+    }
+  }
+
+  &__author {
+    flex-basis: 100%;
+
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+
+    @include mq(medium) {
+      font-size: 13px;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+
+    margin-left: 5px;
+
+    text-decoration: none;
+    color: black;
+
+    cursor: pointer;
+
+    & span {
+      margin-right: 3px;
+    }
+  }
+}

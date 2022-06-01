@@ -1,0 +1,78 @@
+@import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
+
+.highlighted {
+  display: flex;
+  gap: 0 5px;
+
+  padding: 15px 20px;
+
+  @include mq(large) {
+    flex-direction: column;
+  }
+
+  &__image {
+    flex-basis: 50%;
+
+    position: relative;
+
+    height: 400px;
+
+    @include mq(large) {
+      flex-basis: auto;
+    }
+
+    & img {
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    flex-basis: 50%;
+    @include mq(large) {
+      flex-basis: auto;
+    }
+  }
+
+  &__author,
+  &__date {
+    padding: 5px 0;
+
+    & span {
+      font-weight: 500;
+    }
+  }
+
+  &__title {
+    margin: 10px 0;
+
+    text-align: center;
+    font-size: 26px;
+    font-weight: 500;
+
+    @include mq(medium) {
+      font-size: 22px;
+    }
+  }
+
+  &__description {
+    margin: 10px 0;
+  }
+
+  &__link {
+    display: inline-block;
+
+    color: black;
+    text-decoration: underline;
+
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    &:active {
+      opacity: 0.1;
+    }
+  }
+}

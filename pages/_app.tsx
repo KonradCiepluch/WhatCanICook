@@ -38,8 +38,7 @@ export default App;
 
 App.getInitialProps = async () => {
   try {
-    const categories = await getCategories();
-    const recipes = await getRecipes();
+    const [categories, recipes] = await Promise.all([getCategories(), getRecipes()]);
 
     return { categories, recipes };
   } catch (e) {

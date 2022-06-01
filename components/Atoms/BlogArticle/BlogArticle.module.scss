@@ -1,0 +1,94 @@
+@import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
+
+.article {
+  &__image {
+    position: relative;
+
+    height: 300px;
+
+    cursor: pointer;
+
+    @include mq(medium) {
+      height: 250px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background-color: rgba(0, 0, 0, 0);
+
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    &:hover::after {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    & img {
+      object-fit: cover;
+    }
+  }
+
+  &__title {
+    position: absolute;
+    left: 20px;
+    top: 65%;
+    z-index: 1;
+
+    color: white;
+    font-size: 26px;
+    font-weight: 400;
+    text-shadow: 0 0 25px #000;
+
+    @include mq(medium) {
+      font-size: 22px;
+    }
+  }
+
+  &__author,
+  &__date {
+    padding: 5px 10px;
+
+    @include mq(medium) {
+      font-size: 14px;
+    }
+
+    & span {
+      font-weight: 500;
+    }
+  }
+
+  &__content {
+    margin-top: 10px;
+
+    font-weight: 400;
+
+    @include mq(medium) {
+      font-size: 14px;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+
+    color: black;
+    text-decoration: underline;
+
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    &:active {
+      opacity: 0.1;
+    }
+  }
+}

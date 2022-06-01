@@ -42,6 +42,8 @@ const tagsRef = collection(db, 'tags');
 
 const userListsRef = collection(db, 'userShoppingList');
 
+const blogsRef = collection(db, 'blog');
+
 const getUserListRef = (docId: string) => doc(db, 'userShoppingList', docId);
 
 const auth = getAuth();
@@ -52,6 +54,18 @@ const googleProvider = new GoogleAuthProvider();
 
 const githubProvider = new GithubAuthProvider();
 
-export { recipesRef, categoriesRef, tagsRef, userListsRef, getUserListRef, auth, facebookProvider, googleProvider, githubProvider, storage };
+export {
+  recipesRef,
+  categoriesRef,
+  tagsRef,
+  userListsRef,
+  blogsRef,
+  getUserListRef,
+  auth,
+  facebookProvider,
+  googleProvider,
+  githubProvider,
+  storage,
+};
 
 export default app;

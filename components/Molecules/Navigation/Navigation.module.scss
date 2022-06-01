@@ -10,6 +10,19 @@
   list-style: none;
 }
 
+.nav__link {
+  padding: 0 20px;
+
+  color: black;
+  font-size: 18px;
+
+  transition: none;
+
+  &:hover {
+    color: white;
+  }
+}
+
 .nav__item {
   position: relative;
   z-index: 2;
@@ -21,6 +34,10 @@
   font-size: 18px;
   font-weight: 600;
   text-transform: uppercase;
+
+  &:nth-child(2) {
+    padding: 0;
+  }
 
   &:hover {
     background-color: $nav-background;

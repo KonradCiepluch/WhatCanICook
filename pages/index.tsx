@@ -1,22 +1,23 @@
 import React from 'react';
-import { getDocs } from 'firebase/firestore';
 
-import { recipesRef } from 'firebaseInit/firebase';
+import { getRecipes, getCategories, getBlogs } from 'lib/firebaseData';
+import { Home } from 'components/Templates';
+import { IRecipe, ICategory, IBlog } from 'interfaces';
 
-type Props = { recipes: any };
+type Props = { recipes: IRecipe[]; categories: ICategory[]; blogs: IBlog[] };
 
-const HomePage = ({ recipes }: Props) => {
-  return <div>Home</div>;
+const HomePage = ({ recipes, categories, blogs }: Props) => {
+  return <Home recipe={recipes[0]} categories={categories} blogs={blogs} />;
 };
 
 export default HomePage;
 
 export const getStaticProps = async () => {
   try {
-    const { docs } = await getDocs(recipesRef);
-    const recipes = docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    return { props: { recipes } };
+    const [recipes, categories, blogs] = await Promise.all([getRecipes(), getCategories(), getBlogs()]);
+
+    return { props: { recipes, categories, blogs } };
   } catch (e) {
-    return { props: { recipes: [] } };
+    return { props: { recipes: [], categories: [], blogs: [] } };
   }
 };
