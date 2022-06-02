@@ -2,22 +2,22 @@ import React from 'react';
 import { GetStaticProps } from 'next';
 
 import { Blog } from 'components/Templates';
-import { getBlogs } from 'lib/firebaseData';
-import { IBlog } from 'interfaces';
+import { getBlogPosts } from 'lib/firebaseData';
+import { IBlogPost } from 'interfaces';
 
-type Props = { blogs: IBlog[] };
+type Props = { blogPosts: IBlogPost[] };
 
-const BlogPage = ({ blogs }: Props) => {
-  return <Blog blogs={blogs} />;
+const BlogPage = ({ blogPosts }: Props) => {
+  return <Blog blogPosts={blogPosts} />;
 };
 
 export default BlogPage;
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const blogs = await getBlogs();
-    return { props: { blogs } };
+    const blogPosts = await getBlogPosts();
+    return { props: { blogPosts } };
   } catch (e) {
-    return { props: { blogs: [] as IBlog[] } };
+    return { props: { blogPosts: [] as IBlogPost[] } };
   }
 };

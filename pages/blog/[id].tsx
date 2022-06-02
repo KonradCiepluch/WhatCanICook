@@ -2,22 +2,22 @@ import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 
 import { BlogItem } from 'components/Templates';
-import { getBlogs } from 'lib/firebaseData';
-import { IBlog } from 'interfaces';
+import { getBlogPosts } from 'lib/firebaseData';
+import { IBlogPost } from 'interfaces';
 
-type Props = { blog: IBlog };
+type Props = { blogPost: IBlogPost };
 
-const BlogItemPage = ({ blog }: Props) => {
-  return <BlogItem blog={blog} />;
+const BlogItemPage = ({ blogPost }: Props) => {
+  return <BlogItem blogPost={blogPost} />;
 };
 
 export default BlogItemPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const blogs = await getBlogs();
+    const blogPosts = await getBlogPosts();
 
-    const paths = blogs.map(({ id }) => ({ params: { id } }));
+    const paths = blogPosts.map(({ id }) => ({ params: { id } }));
 
     return { paths, fallback: false };
   } catch (e) {
@@ -28,12 +28,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params: { id } }) => {
   const blogId = Array.isArray(id) ? id[0] : id;
   try {
-    const blogs = await getBlogs();
+    const blogPosts = await getBlogPosts();
 
-    const blog = blogs.find((item) => item.id === blogId);
+    const blogPost = blogPosts.find((item) => item.id === blogId);
 
-    return { props: { blog } };
+    return { props: { blogPost } };
   } catch (e) {
-    return { props: { blog: null } };
+    return { props: { blogPost: null } };
   }
 };

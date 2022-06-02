@@ -2,15 +2,15 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-import { IBlog } from 'interfaces';
+import { IBlogPost } from 'interfaces';
 import NavLink from '../NavLink/NavLink';
 import styles from './HighlightedArticle.module.scss';
 
-type Props = { blog: IBlog };
+type Props = { blogPost: IBlogPost };
 
 const articleVariant = { hidden: { opacity: 0, x: -200 }, visible: { opacity: 1, x: 0, transition: { delay: 1.8, duration: 0.5 } } };
 
-const HighlightedArticle = ({ blog: { title, photo, author, date, id, summary } }: Props) => {
+const HighlightedArticle = ({ blogPost: { title, photo, author, date, id, summary } }: Props) => {
   return (
     <motion.article className={styles.highlighted} variants={articleVariant} initial="hidden" animate="visible">
       <div className={styles.highlighted__image}>

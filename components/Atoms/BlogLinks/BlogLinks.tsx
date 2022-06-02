@@ -2,13 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { IBlog } from 'interfaces';
-import styles from './Blogs.module.scss';
+import { IBlogPost } from 'interfaces';
+import styles from './BlogLinks.module.scss';
 
-type Props = { blogs: IBlog[] };
+type Props = { blogPosts: IBlogPost[] };
 
-const Blogs = ({ blogs }: Props) => {
-  const links = blogs.map(({ id, photo, title }) => (
+const BlogLinks = ({ blogPosts }: Props) => {
+  const links = blogPosts.map(({ id, photo, title }) => (
     <Link key={id} href={`/blog/${id}`}>
       <a className={styles.blogs__link}>
         <Image src={photo} width={80} height={80} />
@@ -25,4 +25,4 @@ const Blogs = ({ blogs }: Props) => {
   );
 };
 
-export default Blogs;
+export default BlogLinks;

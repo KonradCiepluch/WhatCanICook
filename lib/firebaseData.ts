@@ -29,18 +29,18 @@ const getCategories = async () => {
   }
 };
 
-const getBlogs = async () => {
+const getBlogPosts = async () => {
   try {
     const { docs } = await getDocs(blogsRef);
 
     const data = docs.map((doc) => ({ ...doc.data(), id: doc.id })) as IBlogFireBase[];
 
-    const blogs = data.map(({ date, ...rest }) => {
+    const blogPosts = data.map(({ date, ...rest }) => {
       const dateString = date.toDate().toLocaleDateString();
       return { ...rest, date: dateString };
     }) as IBlog[];
 
-    return blogs;
+    return blogPosts;
   } catch (e) {
     throw new Error(e);
   }
@@ -121,4 +121,4 @@ const deleteShoppingList = async (id: string) => {
   }
 };
 
-export { getRecipes, getCategories, getTags, getBlogs, uploadImage, addRecipe, getShoppingList, addToShoppingList, deleteShoppingList };
+export { getRecipes, getCategories, getTags, getBlogPosts, uploadImage, addRecipe, getShoppingList, addToShoppingList, deleteShoppingList };

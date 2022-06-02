@@ -26,7 +26,7 @@ interface IContent {
   };
 }
 
-export interface IBlogFireBase {
+export interface IBlogPostFireBase {
   isHighlighted?: boolean;
   author: string;
   content: IContent[];
@@ -37,6 +37,6 @@ export interface IBlogFireBase {
   id: string;
 }
 
-export interface IBlog extends Omit<IBlogFireBase, 'date'> {
+export interface IBlogPost extends Omit<IBlogPostFireBase, 'date'> {
   date: string;
 }

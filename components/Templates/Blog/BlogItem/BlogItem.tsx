@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
 
-import { IBlog } from 'interfaces';
+import { IBlogPost } from 'interfaces';
 import { BreadCrumbs } from 'components/Molecules';
 import styles from './BlogItem.module.scss';
 
-type Props = { blog: IBlog };
+type Props = { blogPost: IBlogPost };
 
-const BlogItem = ({ blog: { id, title, photo, date, content, author } }: Props) => {
+const BlogItem = ({ blogPost: { id, title, photo, date, content, author } }: Props) => {
   const linkLabels = useMemo(
     () => [
       { label: 'What can I cook', href: '/' },

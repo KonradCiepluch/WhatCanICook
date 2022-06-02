@@ -2,13 +2,13 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { IBlog } from 'interfaces';
+import { IBlogPost } from 'interfaces';
 import NavLink from '../NavLink/NavLink';
 import styles from './BlogArticle.module.scss';
 
-type Props = { blog: IBlog };
+type Props = { blogPost: IBlogPost };
 
-const BlogArticle = ({ blog: { photo, title, author, date, id, summary } }: Props) => {
+const BlogArticle = ({ blogPost: { photo, title, author, date, id, summary } }: Props) => {
   return (
     <article className={styles.article}>
       <Link href={`/blog/${id}`}>
