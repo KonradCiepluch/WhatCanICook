@@ -12,3 +12,6 @@ export { default as RecipeArticle } from './RecipeArticle/RecipeArticle';
 export { default as ListElement } from './ListElement/ListElement';
 export { default as SearchInput } from './SearchInput/SearchInput';
 export { default as SearchElement } from './SearchElement/SearchElement';
+export { default as HighlightedArticle } from './HighlightedArticle/HighlightedArticle';
+export { default as BlogLinks } from './BlogLinks/BlogLinks';
+export { default as BlogArticle } from './BlogArticle/BlogArticle';

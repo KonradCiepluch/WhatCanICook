@@ -36,9 +36,7 @@ export const getStaticProps: GetStaticProps = async ({ params: { category, subca
   const recipesSubcategory = Array.isArray(subcategory) ? subcategory[0] : subcategory;
 
   try {
-    const categories = await getCategories();
-
-    const recipes = await getRecipes();
+    const [categories, recipes] = await Promise.all([getCategories(), getRecipes()]);
 
     const { name: categoryName, subcategories } = categories.find(({ slug }) => slug === recipesCategory);
 

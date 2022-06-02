@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { useUser } from 'context/UserProvider';
 import { auth } from 'firebaseInit/firebase';
 import { ICategory, IRecipe } from 'interfaces';
-import { Navigation, SearchBar } from 'components/Molecules';
+import { Navigation, SearchBar, Footer } from 'components/Molecules';
 import logoImage from 'assets/logo.png';
 import styles from './Layout.module.scss';
 
@@ -53,7 +53,7 @@ const Layout = ({ children, categories, recipes }: ILayout) => {
 
   return (
     <div className={styles.page}>
-      <nav className={styles.menu}>
+      <motion.nav className={styles.menu} initial={{ opacity: 0, y: -100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
         <Link href="/">
           <a>
             <Image src={logoImage} width={100} height={100} alt="site logo" />
@@ -65,8 +65,9 @@ const Layout = ({ children, categories, recipes }: ILayout) => {
           <span className="fas fa-user" />
           <div className={styles.menu__links}>{links}</div>
         </div>
-      </nav>
+      </motion.nav>
       <AnimatePresence exitBeforeEnter>{children}</AnimatePresence>
+      <Footer />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import { getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { uploadBytes, getDownloadURL, ref } from 'firebase/storage';
 
-import { recipesRef, categoriesRef, tagsRef, userListsRef, getUserListRef, storage } from 'firebaseInit/firebase';
-import { IRecipe, IUserShoppingList, IProductItem, ICategoriesCollection } from 'interfaces';
+import { recipesRef, categoriesRef, tagsRef, userListsRef, getUserListRef, blogsRef, storage } from 'firebaseInit/firebase';
+import { IRecipe, IUserShoppingList, IProductItem, ICategoriesCollection, IBlog, IBlogFireBase } from 'interfaces';
 import aggregateProducts from 'utils/aggregateProducts';
 
 const getRecipes = async () => {
@@ -24,6 +24,23 @@ const getCategories = async () => {
     const [{ categories }] = docs.map((doc) => doc.data()) as ICategoriesCollection[];
 
     return categories;
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+const getBlogPosts = async () => {
+  try {
+    const { docs } = await getDocs(blogsRef);
+
+    const data = docs.map((doc) => ({ ...doc.data(), id: doc.id })) as IBlogFireBase[];
+
+    const blogPosts = data.map(({ date, ...rest }) => {
+      const dateString = date.toDate().toLocaleDateString();
+      return { ...rest, date: dateString };
+    }) as IBlog[];
+
+    return blogPosts;
   } catch (e) {
     throw new Error(e);
   }
@@ -104,4 +121,4 @@ const deleteShoppingList = async (id: string) => {
   }
 };
 
-export { getRecipes, getCategories, getTags, uploadImage, addRecipe, getShoppingList, addToShoppingList, deleteShoppingList };
+export { getRecipes, getCategories, getTags, getBlogPosts, uploadImage, addRecipe, getShoppingList, addToShoppingList, deleteShoppingList };

@@ -20,8 +20,7 @@ export default Recipe;
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
-    const categories = await getCategories();
-    const tags = await getTags();
+    const [categories, tags] = await Promise.all([getCategories(), getTags()]);
 
     return { props: { categories, tags } };
   } catch (e) {

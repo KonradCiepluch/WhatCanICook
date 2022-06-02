@@ -34,6 +34,9 @@ const Navigation = ({ categories }: INavigation) => {
         Przepisy
         <ul className={styles.categories}>{recipes}</ul>
       </li>
+      <li className={styles.nav__item}>
+        <NavLink href={`/blog`} label="Blog" className={styles.nav__link} />
+      </li>
     </ul>
   );
 };

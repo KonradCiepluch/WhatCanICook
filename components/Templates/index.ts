@@ -6,3 +6,6 @@ export { default as User } from './Auth/User/User';
 export { default as Category } from './Recipes/Category/Category';
 export { default as AddRecipe } from './Auth/User/AddRecipe/AddRecipe';
 export { default as ShoppingList } from './Auth/User/ShoppingList/ShoppingList';
+export { default as Home } from './Home/Home';
+export { default as Blog } from './Blog/Blog';
+export { default as BlogItem } from './Blog/BlogItem/BlogItem';
