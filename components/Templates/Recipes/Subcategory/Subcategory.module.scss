@@ -4,25 +4,31 @@
   margin: 30px 0;
   padding: 0 20px;
 
+  @include mq(small) {
+    padding: 0 10px;
+  }
+
   &__heading {
-    margin-bottom: 30px;
+    margin: 15px 0;
 
     font-weight: 600;
     text-align: center;
     text-transform: uppercase;
+
+    @include mq(small) {
+      font-size: 22px;
+    }
   }
 
   &__list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 200px;
     gap: 10px 10px;
 
     list-style: none;
 
     @include mq(large) {
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: 180px;
     }
   }
 

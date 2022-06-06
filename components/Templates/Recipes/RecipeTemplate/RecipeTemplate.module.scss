@@ -66,6 +66,10 @@
     width: auto;
     margin: 15px auto;
     padding: 5px 30px;
+
+    @include mq(medium) {
+      padding: 5px 15px;
+    }
   }
 
   &__tags {

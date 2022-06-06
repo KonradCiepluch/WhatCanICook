@@ -1,11 +1,17 @@
+@import 'styles/_mixins.scss';
+
 .recipe {
   border: none;
   &__link {
     position: relative;
     display: block;
-    height: 100%;
+    height: 200px;
 
     color: black;
+
+    @include mq(large) {
+      height: 180px;
+    }
 
     &::after {
       content: '';

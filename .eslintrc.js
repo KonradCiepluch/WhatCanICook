@@ -7,6 +7,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:import/typescript',
     'prettier',
+    'plugin:cypress/recommended',
   ],
   parserOptions: {
     project: './tsconfig.json',
@@ -27,5 +28,6 @@ module.exports = {
     'import/prefer-default-export': 'error',
     'import/first': 'error',
     'import/no-unresolved': [1, { esmodule: false }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true, optionalDependencies: false, peerDependencies: false }],
   },
 };

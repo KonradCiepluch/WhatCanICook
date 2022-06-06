@@ -1,0 +1,23 @@
+.wrapper {
+  &__active span {
+    transform: rotate(90deg);
+  }
+
+  &__button {
+    border: none;
+
+    background-color: transparent;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    & span {
+      margin-left: 5px;
+
+      font-size: 18px;
+
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+}

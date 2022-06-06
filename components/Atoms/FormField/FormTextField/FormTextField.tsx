@@ -12,7 +12,7 @@ const FormTextField = ({ name, type, placeholder, disabled }: IField) => {
 
   return (
     <div className={styles.field}>
-      <input type={type} placeholder={placeholder} {...register(name)} className={styles.field__input} disabled={disabled} />
+      <input type={type} placeholder={placeholder} {...register(name)} className={styles.field__input} disabled={disabled} data-cy={name} />
       {errors[name] ? <span className={styles.field__error}>{errors[name].message}</span> : null}
     </div>
   );

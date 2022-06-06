@@ -1,7 +1,14 @@
+@import 'styles/_mixins.scss';
+
 .step {
   display: flex;
 
   margin-bottom: 10px;
+
+  @include mq(small) {
+    flex-direction: column;
+    gap: 10px 0;
+  }
 
   &__content {
     flex-grow: 1;

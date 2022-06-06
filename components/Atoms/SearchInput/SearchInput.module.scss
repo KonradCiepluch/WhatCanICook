@@ -1,10 +1,19 @@
 @import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
 
 .search {
   position: relative;
 
   width: 300px;
   margin: 0 auto;
+
+  @include mq(medium) {
+    width: 250px;
+  }
+
+  @include mq(small) {
+    width: 200px;
+  }
 
   &__input {
     height: 40px;
@@ -34,6 +43,14 @@
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 
     cursor: pointer;
+
+    @include mq(medium) {
+      transform: translateX(-110px);
+    }
+
+    @include mq(small) {
+      transform: translateX(-80px);
+    }
   }
 
   &--active {

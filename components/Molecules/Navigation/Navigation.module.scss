@@ -1,4 +1,5 @@
 @import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
 
 .nav__list {
   display: flex;
@@ -8,6 +9,10 @@
   margin: 0 50px;
 
   list-style: none;
+
+  @include mq(large) {
+    display: none;
+  }
 }
 
 .nav__link {
