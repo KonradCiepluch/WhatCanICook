@@ -9,3 +9,12 @@ $breakpoints: (
   large: 'max-width: 1024px',
   xlarge: 'max-width: 1240px',
 );
+
+@keyframes arrowMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(5px);
+  }
+}

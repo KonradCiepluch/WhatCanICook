@@ -15,3 +15,5 @@ export { default as SearchElement } from './SearchElement/SearchElement';
 export { default as HighlightedArticle } from './HighlightedArticle/HighlightedArticle';
 export { default as BlogLinks } from './BlogLinks/BlogLinks';
 export { default as BlogArticle } from './BlogArticle/BlogArticle';
+export { default as Accordion } from './Accordion/Accordion';
+export { default as MobileMenuListElement } from './MobileMenuListElement/MobileMenuListElement';

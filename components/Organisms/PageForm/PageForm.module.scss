@@ -1,12 +1,23 @@
+@import 'styles/_mixins.scss';
+
 .form {
   width: 500px;
   margin: 30px auto;
+
+  @include mq(small) {
+    width: 100%;
+    padding: 0 5px;
+  }
 
   &__heading {
     margin-bottom: 20px;
 
     font-size: 28px;
     text-align: center;
+
+    @include mq(small) {
+      font-size: 22px;
+    }
   }
 
   &__error {

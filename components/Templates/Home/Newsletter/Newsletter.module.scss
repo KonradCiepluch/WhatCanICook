@@ -60,7 +60,7 @@
           font-size: 18px;
         }
         @include mq(small) {
-          padding: 0 15px;
+          padding: 0 5px;
 
           font-size: 16px;
         }
@@ -80,16 +80,20 @@
           padding-right: 95px;
         }
         @include mq(small) {
-          width: 260px;
+          width: 240px;
         }
       }
 
       & span {
-        flex-basis: 100%;
-
         text-align: center;
         font-weight: 500;
         font-size: 16px;
+
+        @include mq(small) {
+          width: 100%;
+          margin-left: 0;
+          font-size: 14px;
+        }
       }
 
       & button {
@@ -107,6 +111,12 @@
         @include mq(large) {
           padding: 10px 15px;
           margin-left: -90px;
+        }
+        @include mq(small) {
+          margin-left: -80px;
+          padding: 8px 10px;
+
+          font-size: 13px;
         }
       }
     }

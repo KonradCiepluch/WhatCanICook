@@ -9,9 +9,9 @@ import styles from './Hero.module.scss';
 
 type Props = { recipe: IRecipe };
 
-const headingVariant = { hidden: { opacity: 0, x: -200 }, visible: { opacity: 1, x: 0, transition: { delay: 0.2, duration: 1 } } };
+const headingVariant = { hidden: { opacity: 0, x: -200 }, visible: { opacity: 1, x: 0, transition: { delay: 0.8, duration: 1 } } };
 
-const divVariant = { hidden: { opacity: 0, x: 200 }, visible: { opacity: 1, x: 0, transition: { delay: 0.2, duration: 1 } } };
+const divVariant = { hidden: { opacity: 0, x: 200 }, visible: { opacity: 1, x: 0, transition: { delay: 0.8, duration: 1 } } };
 
 const Hero = ({
   recipe: {

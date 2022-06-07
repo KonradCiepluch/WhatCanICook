@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 import logoImage from 'assets/logo.png';
 import styles from './Footer.module.scss';
@@ -21,7 +22,30 @@ const hoverAnimation = {
   opacity: 0.5,
 };
 
+const footerVariant = {
+  hidden: {
+    opacity: 0,
+    y: 50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.3,
+      delay: 0.2,
+    },
+  },
+};
+
 const Footer = () => {
+  const [ref, inView] = useInView({ threshold: 0.5 });
+
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) controls.start('visible');
+  }, [inView, controls]);
+
   const links = linksContent.map(({ label, href }) => (
     <Link key={label} href={href}>
       <motion.a className={styles.footer__link} whileHover={hoverAnimation} whileTap={tapAnimation}>
@@ -31,7 +55,7 @@ const Footer = () => {
   ));
 
   return (
-    <footer className={styles.footer}>
+    <motion.footer className={styles.footer} ref={ref} animate={controls} initial="hidden" variants={footerVariant}>
       <div className={styles.footer__image}>
         <Image src={logoImage} width={100} height={100} alt="site logo" />
       </div>
@@ -43,7 +67,7 @@ const Footer = () => {
           Konrad Ciepluch
         </motion.a>
       </p>
-    </footer>
+    </motion.footer>
   );
 };
 

@@ -1,3 +1,5 @@
+@import 'styles/_mixins.scss';
+
 .form__media-wrapper {
   display: flex;
   flex-direction: column;
@@ -62,6 +64,10 @@
   margin: 10px 0;
 
   text-transform: none;
+
+  @include mq(small) {
+    padding: 12px 15px;
+  }
 
   & div {
     position: absolute;

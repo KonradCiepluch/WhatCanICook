@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useUser } from 'context/UserProvider';
 import { auth } from 'firebaseInit/firebase';
 import { ICategory, IRecipe } from 'interfaces';
-import { Navigation, SearchBar, Footer } from 'components/Molecules';
+import { Navigation, SearchBar, Footer, MobileMenu } from 'components/Molecules';
 import logoImage from 'assets/logo.png';
 import styles from './Layout.module.scss';
 
@@ -32,6 +32,11 @@ interface ILayout {
   recipes: IRecipe[];
 }
 
+const navVariant = {
+  hidden: { opacity: 0, y: -100 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+};
+
 const Layout = ({ children, categories, recipes }: ILayout) => {
   const { handleSignInUser } = useUser();
 
@@ -53,10 +58,10 @@ const Layout = ({ children, categories, recipes }: ILayout) => {
 
   return (
     <div className={styles.page}>
-      <motion.nav className={styles.menu} initial={{ opacity: 0, y: -100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+      <motion.nav className={styles.menu} variants={navVariant} initial="hidden" animate="visible">
         <Link href="/">
-          <a>
-            <Image src={logoImage} width={100} height={100} alt="site logo" />
+          <a className={styles.menu__logo}>
+            <Image src={logoImage} layout="fill" alt="site logo" />
           </a>
         </Link>
         <Navigation categories={categories} />
@@ -65,6 +70,7 @@ const Layout = ({ children, categories, recipes }: ILayout) => {
           <span className="fas fa-user" />
           <div className={styles.menu__links}>{links}</div>
         </div>
+        <MobileMenu categories={categories} userLinks={navLinks} />
       </motion.nav>
       <AnimatePresence exitBeforeEnter>{children}</AnimatePresence>
       <Footer />

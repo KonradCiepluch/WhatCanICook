@@ -9,7 +9,7 @@ type Props = { href: string; photoUrl: string; label: string; handleClear: () =>
 const SearchElement = ({ href, photoUrl, label, handleClear, className = '' }: Props) => (
   <li className={`${styles.element}  ${className}`} onClick={handleClear}>
     <Link href={href}>
-      <a className={styles.element__link}>
+      <a className={styles.element__link} data-cy={label}>
         <Image src={photoUrl} width={50} height={50} />
         <span className={styles.element__label}> {label}</span>
       </a>

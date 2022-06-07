@@ -1,4 +1,5 @@
 @import 'styles/_variables.scss';
+@import 'styles/_mixins.scss';
 
 .page {
   display: flex;
@@ -17,9 +18,20 @@
 
   height: 100px;
 
-  & > a:first-child {
-    display: block;
+  @include mq(small) {
+    height: 80px;
+    align-items: flex-end;
+  }
+
+  &__logo {
+    position: relative;
+    width: 100px;
     height: 100px;
+
+    @include mq(small) {
+      width: 80px;
+      height: 80px;
+    }
   }
 
   &__user {
@@ -34,6 +46,10 @@
     margin-right: 200px;
 
     cursor: pointer;
+
+    @include mq(large) {
+      display: none;
+    }
 
     &:hover {
       background-color: $nav-background;

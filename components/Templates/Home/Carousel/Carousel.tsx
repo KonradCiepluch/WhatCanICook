@@ -16,7 +16,12 @@ const breakpoints = { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } };
 
 const slideVariant = {
   hidden: { opacity: 0, y: 100 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: 0.2 * i + 0.8, duration: 0.6, stagger: 0.2 } }),
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: 0.2 * i + 1.8, duration: 0.6 } }),
+};
+
+const headingVariant = {
+  hidden: { opacity: 0, y: -50 },
+  visible: { opacity: 1, y: 0, transition: { delay: 1.6, duration: 0.4 } },
 };
 
 const Carousel = ({ categories }: Props) => {
@@ -33,7 +38,9 @@ const Carousel = ({ categories }: Props) => {
 
   return (
     <section className={styles.swiper}>
-      <h2 className={styles.swiper__heading}>Znajdź przepisy według kategorii</h2>
+      <motion.h2 className={styles.swiper__heading} variants={headingVariant} initial="hidden" animate="visible">
+        Znajdź przepisy według kategorii
+      </motion.h2>
       <Swiper
         spaceBetween={50}
         breakpoints={breakpoints}

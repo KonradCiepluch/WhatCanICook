@@ -1,6 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { FieldValues } from 'react-hook-form';
 import * as yup from 'yup';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 import { PageForm } from 'components/Organisms';
 import addMemberToGroup from 'lib/addMemberToGroup';
@@ -23,18 +25,30 @@ const inputsArray = [
     name: 'email',
   },
 ];
+const sectionVariant = {
+  hidden: { scale: 0, opacity: 0 },
+  visible: { scale: 1, opacity: 1, transition: { delay: 0.5, duration: 0.6 } },
+};
 
 const Newsletter = () => {
+  const [ref, inView] = useInView({ threshold: 0.5 });
+
+  const controls = useAnimation();
+
+  useEffect(() => {
+    if (inView) controls.start('visible');
+  }, [inView, controls]);
+
   const handleSubmit = useCallback(async ({ email }: FieldValues) => {
     await addMemberToGroup(email);
   }, []);
 
   return (
-    <section className={styles.newsletter}>
+    <motion.section className={styles.newsletter} ref={ref} animate={controls} variants={sectionVariant} initial="hidden">
       <div className={styles.newsletter__wrapper}>
         <PageForm content={content} submitHandler={handleSubmit} inputsArray={inputsArray} schema={schema} />
       </div>
-    </section>
+    </motion.section>
   );
 };
 
