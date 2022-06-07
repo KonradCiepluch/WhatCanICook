@@ -35,8 +35,8 @@ Cypress.Commands.add('signIn', (email: string, pw: string) => {
   cy.get('[data-cy="Logowanie"]').click();
   cy.url().should('contain', 'login');
 
-  cy.get('[data-cy="email"]').type(email);
-  cy.get('[data-cy="password"]').type(pw);
+  cy.get('[placeholder="wpisz adres email"]').type(email);
+  cy.get('[placeholder="wpisz hasło"]').type(pw);
 
   cy.contains(submitButton).click();
 });
