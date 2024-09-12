@@ -2,7 +2,7 @@ import { getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { uploadBytes, getDownloadURL, ref } from 'firebase/storage';
 
 import { recipesRef, categoriesRef, tagsRef, userListsRef, getUserListRef, blogsRef, storage } from 'firebaseInit/firebase';
-import { IRecipe, IUserShoppingList, IProductItem, ICategoriesCollection, IBlog, IBlogFireBase } from 'interfaces';
+import { IRecipe, IUserShoppingList, IProductItem, ICategoriesCollection, IBlogPost, IBlogPostFireBase } from 'interfaces';
 import aggregateProducts from 'utils/aggregateProducts';
 
 const getRecipes = async () => {
@@ -33,12 +33,12 @@ const getBlogPosts = async () => {
   try {
     const { docs } = await getDocs(blogsRef);
 
-    const data = docs.map((doc) => ({ ...doc.data(), id: doc.id })) as IBlogFireBase[];
+    const data = docs.map((doc) => ({ ...doc.data(), id: doc.id })) as IBlogPostFireBase[];
 
     const blogPosts = data.map(({ date, ...rest }) => {
       const dateString = date.toDate().toLocaleDateString();
       return { ...rest, date: dateString };
-    }) as IBlog[];
+    }) as IBlogPost[];
 
     return blogPosts;
   } catch (e) {
