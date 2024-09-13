@@ -1,6 +1,5 @@
 import { getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { uploadBytes, getDownloadURL, ref } from 'firebase/storage';
-
 import { recipesRef, categoriesRef, tagsRef, userListsRef, getUserListRef, blogsRef, storage } from 'firebaseInit/firebase';
 import { IRecipe, IUserShoppingList, IProductItem, ICategoriesCollection, IBlogPost, IBlogPostFireBase } from 'interfaces';
 import aggregateProducts from 'utils/aggregateProducts';
