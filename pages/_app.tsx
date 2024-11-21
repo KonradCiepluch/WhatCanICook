@@ -2,7 +2,7 @@ import React from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-
+import { Analytics } from '@vercel/analytics/react';
 import { getCategories, getRecipes } from 'lib/firebaseData';
 import Layout from 'components/Templates/Layout/Layout';
 import UserProvider from 'context/UserProvider';
@@ -29,6 +29,7 @@ const App = ({ Component, pageProps, categories, recipes }: IApp) => {
       </Head>
       <Layout categories={categories} recipes={recipes}>
         <Component key={pathname} {...pageProps} />
+        <Analytics />
       </Layout>
     </UserProvider>
   );

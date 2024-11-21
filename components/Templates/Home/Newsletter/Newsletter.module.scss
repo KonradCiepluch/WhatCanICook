@@ -121,6 +121,10 @@
       }
     }
 
+    & button + span {
+      width: 100%;
+    }
+
     & > div {
       position: absolute;
       bottom: 30px;
