@@ -10,9 +10,9 @@
 - usehooks-ts
 - Sass
 - Firebase
-- Cypress
 - Html-pdf
 - Cookies-next
+- Cypress
 
 ## Live
 
